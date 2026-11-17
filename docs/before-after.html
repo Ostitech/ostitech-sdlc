@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before and after: per-phase PRP vs one plan with checkpoints</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #151c24;
+    --line: #26303b;
+    --text: #e6edf3;
+    --muted: #8b9aab;
+    --before: #d9a441;
+    --after: #35c2a0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+    font: 15px/1.45 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    padding: 14px 22px; border-bottom: 1px solid var(--line); }
+  header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  main { display: grid; grid-template-rows: 1fr 1fr; height: calc(100% - 53px); }
+  .pane { position: relative; min-height: 300px; }
+  .pane + .pane { border-top: 1px solid var(--line); }
+  .pane canvas { display: block; }
+  .pane .head { position: absolute; top: 14px; left: 18px; right: 18px; pointer-events: none; z-index: 2; }
+  .pane .head h2 { margin: 0 0 4px; font-size: 16px; font-weight: 600; }
+  .pane .head h2 span { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px;
+    margin-right: 8px; vertical-align: middle; color: #0f1419; }
+  .before .head h2 span { background: var(--before); }
+  .after .head h2 span { background: var(--after); }
+  .pane .head p { margin: 0; color: var(--muted); font-size: 13px; max-width: 46ch; }
+  .pane .stats { position: absolute; bottom: 14px; left: 18px; right: 18px; display: flex; gap: 10px;
+    flex-wrap: wrap; pointer-events: none; z-index: 2; }
+  .stat { background: rgba(21,28,36,.85); border: 1px solid var(--line); border-radius: 8px;
+    padding: 6px 10px; font-size: 12px; color: var(--muted); }
+  .stat b { color: var(--text); font-weight: 600; }
+  .label { color: var(--text); font-size: 13px; font-weight: 600; text-align: center; white-space: nowrap;
+    pointer-events: none; text-shadow: 0 1px 2px rgba(0,0,0,.8); }
+  .label small { display: block; font-weight: 400; color: var(--muted); font-size: 11px; }
+  .note { color: var(--muted); font-size: 11.5px; font-style: italic; white-space: nowrap; pointer-events: none;
+    text-shadow: 0 1px 2px rgba(0,0,0,.8); }
+  .label-renderer { position: absolute; top: 0; left: 0; pointer-events: none; }
+  .hint { position: absolute; top: 14px; right: 18px; color: var(--muted); font-size: 12px; z-index: 2; pointer-events: none; }
+  @media (min-width: 1900px) {
+    main { grid-template-rows: 1fr; grid-template-columns: 1fr 1fr; }
+    .pane + .pane { border-top: 0; border-left: 1px solid var(--line); }
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header>
+  <h1>Delivery procedure, before and after</h1>
+  <p>Same feature, same acceptance criteria. Left: the per-phase PRP chain. Right: one plan, phased checkpoints, one close-out.</p>
+</header>
+<main>
+  <section class="pane before" id="before">
+    <div class="head">
+      <h2><span>BEFORE</span>Per-phase plan, implement, report</h2>
+      <p>Every phase in the PRD's table gets its own plan, implementation and report.</p>
+    </div>
+    <div class="hint">drag to orbit · scroll to zoom</div>
+    <div class="stats">
+      <div class="stat"><b>12 to 25</b> phases per PRD</div>
+      <div class="stat"><b>1 plan</b> per phase, 500 to 1,000 lines each</div>
+      <div class="stat"><b>1 report</b> per phase</div>
+      <div class="stat">context re-explored <b>every phase</b></div>
+    </div>
+  </section>
+  <section class="pane after" id="after">
+    <div class="head">
+      <h2><span>NOW</span>One plan, checkpoints, close-out</h2>
+      <p>One plan holds design and phases. Each phase ends at a checkpoint; the plan is amended, never regenerated.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>1 PRD</b>, no phase table</div>
+      <div class="stat"><b>1 plan</b>, shared context written once</div>
+      <div class="stat"><b>3 to 5</b> checkpoints, one commit each</div>
+      <div class="stat"><b>1 close-out</b>, one page, appended</div>
+    </div>
+  </section>
+</main>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+
+const COL = {
+  before: 0xd9a441, beforeDim: 0x7a5b22, slate: 0x4b5a6b, slateDim: 0x2e3946,
+  after: 0x35c2a0, afterDim: 0x1c6b58, arrow: 0x9fb0c2, gate: 0xb0556a,
+};
+
+function makePane(el, build) {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  camera.position.set(0, 5.5, 17);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  el.appendChild(renderer.domElement);
+
+  const labels = new CSS2DRenderer();
+  labels.domElement.className = 'label-renderer';
+  el.appendChild(labels.domElement);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.minDistance = 8; controls.maxDistance = 45;
+  controls.maxPolarAngle = Math.PI * 0.6;
+  controls.target.set(0, -0.5, 0);
+
+  scene.add(new THREE.HemisphereLight(0xdfe8f2, 0x101418, 1.1));
+  const key = new THREE.DirectionalLight(0xffffff, 1.4); key.position.set(6, 10, 8); scene.add(key);
+  const fill = new THREE.DirectionalLight(0x9fb0c2, 0.35); fill.position.set(-8, 4, -6); scene.add(fill);
+
+  const grid = new THREE.GridHelper(40, 40, 0x1f2933, 0x1a222c);
+  grid.position.y = -2.2; scene.add(grid);
+
+  build(scene);
+
+  let userTouched = false;
+  controls.addEventListener('start', () => userTouched = true);
+
+  function resize() {
+    const w = el.clientWidth, h = el.clientHeight;
+    renderer.setSize(w, h); labels.setSize(w, h);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+    if (!userTouched) {
+      // fit a 27-unit-wide flow into the pane, whatever its aspect
+      const dist = 13.5 / (Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect) + 1.5;
+      camera.position.z = THREE.MathUtils.clamp(dist, 17.5, 44);
+      camera.position.y = camera.position.z * 0.3;
+    }
+  }
+  new ResizeObserver(resize).observe(el); resize();
+
+  const clock = new THREE.Clock();
+  function tick() {
+    const t = clock.getElapsedTime();
+    if (!userTouched) { camera.position.x = Math.sin(t * 0.25) * 1.6; camera.lookAt(controls.target); }
+    controls.update();
+    renderer.render(scene, camera); labels.render(scene, camera);
+    requestAnimationFrame(tick);
+  }
+  tick();
+}
+
+function label(text, sub, cls = 'label') {
+  const div = document.createElement('div'); div.className = cls;
+  div.innerHTML = sub ? `${text}<small>${sub}</small>` : text;
+  return new CSS2DObject(div);
+}
+
+function node(scene, { x, y = 0, z = 0, w = 2.4, h = 1.3, d = 0.7, color, text, sub, stack = 0 }) {
+  const group = new THREE.Group(); group.position.set(x, y, z);
+  for (let i = stack; i >= 0; i--) {
+    const geo = new RoundedBoxGeometry(w, h, d, 4, 0.18);
+    const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0.1,
+      transparent: i > 0, opacity: i > 0 ? 0.45 : 1 });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(i * 0.22, i * 0.18, -i * 0.55);
+    group.add(mesh);
+    const edges = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(w, h, d)),
+      new THREE.LineBasicMaterial({ color: 0x0f1419, transparent: true, opacity: 0.35 }));
+    edges.position.copy(mesh.position); group.add(edges);
+  }
+  const l = label(text, sub); l.position.set(0, 0, d / 2 + 0.01); group.add(l);
+  scene.add(group);
+  return group;
+}
+
+function arrow(scene, from, to, color = COL.arrow, curve = 0) {
+  const a = from.position.clone(), b = to.position.clone();
+  const dir = b.clone().sub(a); const len = dir.length(); dir.normalize();
+  const start = a.clone().add(dir.clone().multiplyScalar(1.35));
+  const end = b.clone().sub(dir.clone().multiplyScalar(1.35));
+  let points;
+  if (curve) {
+    const mid = start.clone().add(end).multiplyScalar(0.5).add(new THREE.Vector3(0, curve, 0));
+    points = new THREE.QuadraticBezierCurve3(start, mid, end).getPoints(24);
+  } else points = [start, end];
+  const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points),
+    new THREE.LineBasicMaterial({ color }));
+  scene.add(line);
+  const tipDir = points[points.length - 1].clone().sub(points[points.length - 2]).normalize();
+  const cone = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.42, 12),
+    new THREE.MeshStandardMaterial({ color, roughness: 0.4 }));
+  cone.position.copy(end);
+  cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tipDir);
+  scene.add(cone);
+}
+
+function note(scene, text, x, y, z = 0) {
+  const n = label(text, null, 'note'); n.position.set(x, y, z); scene.add(n);
+}
+
+/* ---------- BEFORE ---------- */
+makePane(document.getElementById('before'), (scene) => {
+  const brief = node(scene, { x: -11, color: COL.slate, text: 'Feature brief', sub: 'client intake' });
+  const prd = node(scene, { x: -7.4, color: COL.before, text: 'PRD', sub: 'phase table, 12 to 25 rows', w: 3.0 });
+  const plan = node(scene, { x: -1, y: 2.0, color: COL.before, text: 'Plan', sub: 'phase n', stack: 3 });
+  const impl = node(scene, { x: 2.0, y: -0.8, color: COL.before, text: 'Implement', sub: 'phase n', stack: 3 });
+  const report = node(scene, { x: -4.0, y: -0.8, color: COL.beforeDim, text: 'Report', sub: 'phase n', stack: 3 });
+  const gate = node(scene, { x: -1, y: -3.2, color: COL.gate, text: 'Human gate', sub: 'deploy, sign-off, pilot', w: 2.8, h: 1.0, d: 0.5 });
+  const pr = node(scene, { x: 6.4, color: COL.slate, text: 'PR' });
+  const archive = node(scene, { x: 10, color: COL.slateDim, text: 'Archive', sub: 'plans/completed' });
+
+  arrow(scene, brief, prd);
+  arrow(scene, prd, plan, COL.before);
+  arrow(scene, plan, impl, COL.before);
+  arrow(scene, impl, report, COL.before);
+  arrow(scene, report, plan, COL.before);
+  arrow(scene, gate, plan, COL.gate, -0.6);
+  arrow(scene, impl, pr);
+  arrow(scene, pr, archive);
+  note(scene, 'repeat for every phase: re-explore, re-plan, re-report', 2.8, 3.6);
+  note(scene, 'phases that are not agent work still sit in the table', 2.8, -4.3);
+});
+
+/* ---------- NOW ---------- */
+makePane(document.getElementById('after'), (scene) => {
+  const prd = node(scene, { x: -10.4, color: COL.after, text: 'PRD', sub: 'requirements only' });
+  const plan = node(scene, { x: -6.4, color: COL.after, text: 'Plan', sub: 'design + phases, once', w: 3.0 });
+
+  const cps = [];
+  const xs = [-2.4, 0.1, 2.6, 5.1];
+  xs.forEach((x, i) => cps.push(node(scene, { x, color: COL.after, text: `Phase ${i + 1}`,
+    sub: i === 0 ? 'contract' : 'checkpoint', w: 1.8, h: 1.1, d: 0.6 })));
+  const pr = node(scene, { x: 9.2, color: COL.slate, text: 'PR', sub: 'one per feature' });
+  const close = node(scene, { x: 1.35, y: -3.2, color: COL.afterDim, text: 'Close-out', sub: 'appended to the plan', w: 2.8, h: 1.0, d: 0.5 });
+  const tracker = node(scene, { x: 1.35, y: 2.9, color: COL.slateDim, text: 'Tracker item', sub: 'gates, deploys, pilots', w: 2.8, h: 1.0, d: 0.5 });
+
+  arrow(scene, prd, plan, COL.after);
+  arrow(scene, plan, cps[0], COL.after);
+  for (let i = 0; i < cps.length - 1; i++) arrow(scene, cps[i], cps[i + 1], COL.after);
+  arrow(scene, cps[cps.length - 1], pr);
+  arrow(scene, pr, close, COL.afterDim, -1.0);
+  arrow(scene, close, plan, COL.afterDim, -1.2);
+  note(scene, 'each checkpoint: validation green, one commit, a note in the plan', 1.35, 1.5);
+  note(scene, 'milestones that are not agent work live on the tracker, not in the plan', 4.2, 4.1);
+});
+</script>
+</body>
+</html>
