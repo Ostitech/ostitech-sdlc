@@ -1,0 +1,53 @@
+# SDLC skills configuration. Contract version 1.
+# Schema: .sdlc/sdlc.config.schema.json  (copied here by init-app)
+# Every key is optional; defaults are documented in docs/extension-points.md of the skills repo.
+version: 1
+
+artefacts:
+  prd_dir: prds
+  plan_dir: plans
+  investigations_dir: investigations
+  mockup_dir: prds/mockups
+
+ids:
+  prd: "PRD-{seq:3}"
+  revision: "{prd}-R{seq:2}"
+
+tracker:
+  type: none            # github | ado | none
+  issue_ref: "#{n}"
+
+branches:
+  prd: "docs/{id}-{slug}"
+  work: "feat/{id}-{slug}"
+  fix: "fix/{id}-{slug}"
+
+# The role vocabulary the PRD skill maps personas onto. Personas are not authorisation.
+roles: []
+#  - name: admin
+#    description: Full access, including destructive actions.
+#  - name: viewer
+#    description: Read-only.
+
+design_system:
+  path: null            # folder of tokens/components a mockup must use
+  guide: null           # file the mockup builder reads first
+
+placeholder_data: null  # one paragraph of realistic sample-data context for mockups
+
+validation:             # null = discover from package.json / Makefile at run time
+  lint: null
+  typecheck: null
+  test: null
+  e2e: null
+  build: null
+
+reviewers: []           # extra reviewer skills, by name
+
+context:
+  always_read: []       # files the plan skill reads before exploring, every time
+  knowledge_index: false
+
+learning:
+  gotchas_dir: null     # e.g. docs/gotchas
+  decisions_dir: null   # e.g. docs/decisions

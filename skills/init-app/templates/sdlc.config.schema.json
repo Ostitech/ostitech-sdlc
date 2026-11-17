@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ostitech.co.nz/schemas/sdlc.config.v1.json",
+  "title": "SDLC skills configuration (contract version 1)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "integer", "const": 1 },
+    "artefacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "prd_dir": { "type": "string", "default": "prds" },
+        "plan_dir": { "type": "string", "default": "plans" },
+        "investigations_dir": { "type": "string", "default": "investigations" },
+        "mockup_dir": { "type": "string", "default": "prds/mockups" }
+      }
+    },
+    "ids": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "prd": {
+          "type": "string",
+          "default": "PRD-{seq:3}",
+          "description": "Tokens: {seq:N} zero-padded counter scanned from prd_dir, {date} YYYYMMDD, {initials} from git user.name"
+        },
+        "revision": { "type": "string", "default": "{prd}-R{seq:2}" }
+      }
+    },
+    "tracker": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "enum": ["github", "ado", "none"], "default": "none" },
+        "issue_ref": { "type": "string", "default": "#{n}" },
+        "org": { "type": "string" },
+        "project": { "type": "string" }
+      }
+    },
+    "branches": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "prd": { "type": "string", "default": "docs/{id}-{slug}" },
+        "work": { "type": "string", "default": "feat/{id}-{slug}" },
+        "fix": { "type": "string", "default": "fix/{id}-{slug}" }
+      }
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "design_system": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": ["string", "null"] },
+        "guide": { "type": ["string", "null"] }
+      }
+    },
+    "placeholder_data": { "type": ["string", "null"] },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lint": { "type": ["string", "null"] },
+        "typecheck": { "type": ["string", "null"] },
+        "test": { "type": ["string", "null"] },
+        "e2e": { "type": ["string", "null"] },
+        "build": { "type": ["string", "null"] }
+      }
+    },
+    "reviewers": { "type": "array", "items": { "type": "string" } },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "always_read": { "type": "array", "items": { "type": "string" } },
+        "knowledge_index": { "type": "boolean", "default": false }
+      }
+    },
+    "learning": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gotchas_dir": { "type": ["string", "null"] },
+        "decisions_dir": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
