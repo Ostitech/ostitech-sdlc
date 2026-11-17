@@ -21,6 +21,10 @@ configuration contract.
 ## Checks before committing
 
 ```
+python scripts/check-skills.py
 claude plugin validate .
 claude plugin eval evals
 ```
+
+Frontmatter values containing `: ` or starting with `<`, `[` or `|` must be
+quoted. Claude Code reads them unquoted; the skills CLI refuses the skill.

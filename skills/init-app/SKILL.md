@@ -1,7 +1,7 @@
 ---
 name: init-app
-description: Scaffold a repository for the SDLC skills: detect what the repo already has, ask only what cannot be detected, then write .sdlc/config.yaml, the config schema, one extensions file per skill, the artefact directories, and a short CLAUDE.md pointer. Use when onboarding a new or existing repository to the skills, or when the user invokes /init-app. Never edits the vendored skills themselves.
-argument-hint: [--yes to accept every detected default]
+description: "Scaffold a repository for the SDLC skills: detect what the repo already has, ask only what cannot be detected, then write .sdlc/config.yaml, the config schema, one extensions file per skill, the artefact directories, and a short CLAUDE.md pointer. Use when onboarding a new or existing repository to the skills, or when the user invokes /init-app. Never edits the vendored skills themselves."
+argument-hint: "[--yes to accept every detected default]"
 ---
 
 # Init app
