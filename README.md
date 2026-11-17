@@ -75,6 +75,29 @@ additions in `.sdlc/extensions/<skill>.md` (extra questions, sections, gates,
 done-criteria, context). A change the extension points cannot express is a
 pull request to this repository.
 
+## Adopting as an organisation
+
+An organisation that wants its own copy keeps a repository with this one as
+`upstream`, so it owns the copy outright and can still merge releases:
+
+```bash
+git remote add upstream https://github.com/Ostitech/ostitech-sdlc.git
+```
+
+```bash
+git fetch upstream --tags && git merge upstream/main
+```
+
+Two rules keep the merge clean and the boundary honest:
+
+- The core skill folders under `skills/` are never edited in the copy. A
+  change the extension points cannot express is a pull request here.
+- Organisation-specific skills and templates live in their own folders in the
+  copy (for example `skills/<org>-<name>/` and `overlay/`), so an install with
+  `--all` from the copy gives a repository the core plus the organisation's
+  additions in one step. Repository-level values and additions still go in
+  that repository's `.sdlc/` folder.
+
 ## Layout
 
 ```
