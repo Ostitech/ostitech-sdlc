@@ -3,6 +3,11 @@
 All notable changes to the skills and the configuration contract.
 Contract version bumps are called out explicitly.
 
+## v0.1.4
+
+### Added
+- Organisation defaults: `init-app` reads a `sdlc.defaults.yaml` found inside any vendored skill folder (shipped from the organisation's copy as `skills/<org>-defaults/`), takes its values over detection and the built-in defaults, and seeds `.sdlc/extensions/` from an `extensions/` folder beside it. Keys `repo`, `workspace` and `validation` are always detected per repository. Additive; contract version stays 1.
+
 ## v0.1.3
 
 ### Fixed

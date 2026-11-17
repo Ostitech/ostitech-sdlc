@@ -127,6 +127,19 @@ gracefully.
 | `## sections` | Extra close-out sections |
 | `## promote` | Where each kind of durable learning is filed, overriding `learning.*` in config |
 
+## Organisation defaults
+
+Values an organisation sets the same way in every repository are answered
+once, in a `sdlc.defaults.yaml` shipped inside a skill folder of the
+organisation's copy of this repository. The skills CLI vendors it with the
+core skills, and `init-app` reads it before asking anything: a key it sets is
+settled, a key it leaves unset is detected or asked as usual. It may also
+carry an `extensions/` folder of initial `.sdlc/extensions/<skill>.md` files.
+Only `init-app` reads it; the other skills read the repository's own
+`.sdlc/` folder, which is where the defaults end up. Keys `repo`,
+`workspace` and `validation` are never taken from it. The format and
+precedence are in the `init-app` skill's `references/org-defaults.md`.
+
 ## Versioning
 
 `config.version` is the contract version. Each skill states the config versions

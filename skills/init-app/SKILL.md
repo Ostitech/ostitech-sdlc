@@ -17,7 +17,13 @@ scaffolding the repository owns; nothing under the skills folder is touched.
 1. If `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml` exists, read it: this is a
    re-run. Keep every value already set and only fill gaps.
 2. Read `references/config.md` for the defaults and what each key is for.
-3. There is no extensions file for this skill.
+3. Look for organisation defaults: a file named `sdlc.defaults.yaml` inside
+   any vendored skill folder (`.claude/skills/*/`, `.agents/skills/*/`).
+   Exactly one: read it and validate it against the schema. More than one:
+   ask which applies. Ignore `repo`, `workspace` and `validation` keys in it
+   with a warning; those are detected per repository. See
+   `references/org-defaults.md` for how an organisation ships the file.
+4. There is no extensions file for this skill.
 
 ## 1. Detect
 
@@ -43,7 +49,10 @@ Present the findings as a table before asking anything.
 ## 2. Ask only the gaps
 
 Ask in one grouped message, with the detected or default value offered for
-each, and skip anything `--yes` or detection already settled:
+each, and skip anything `--yes`, detection or the organisation defaults
+already settled. A key the organisation defaults set is shown as settled, not
+asked; when detection disagrees with it, say so in the findings and keep the
+organisation's value.
 
 1. **Tracker**: always asked, with the detected type as the default. When
    the remote host and the repository's signals disagree, say which pointed
@@ -80,13 +89,16 @@ answer; show them and move on.
 
 Create or update, preserving anything that already exists:
 
-1. `.sdlc/config.yaml` from `templates/config.yaml`, with the answers filled
-   in and detected values set. Leave every other key at its default so the
-   file documents the contract.
+1. `.sdlc/config.yaml` from `templates/config.yaml`. For each key, the first
+   of: the value already in an existing config, the answer given now, the
+   organisation default, the detected value, the built-in default. Leave
+   every other key at its default so the file documents the contract, and
+   add one comment line naming the organisation defaults applied.
 2. `.sdlc/sdlc.config.schema.json`, copied from
    `templates/sdlc.config.schema.json`.
-3. `.sdlc/extensions/{prd,revise,plan,implement,close-plan}.md` from
-   `templates/extensions/`. Skip any that already exist.
+3. `.sdlc/extensions/{prd,revise,plan,implement,close-plan}.md`, each from
+   the organisation defaults' `extensions/` folder when it has that file,
+   otherwise from `templates/extensions/`. Skip any that already exist.
 4. The artefact directories from `artefacts.*`, each with a `.gitkeep`, plus
    `artefacts.mockup_dir` when a design system is set.
 5. `CLAUDE.md`: append the block in `references/claude-md-block.md` (the
@@ -103,7 +115,8 @@ reporting.
 
 ## 4. Report
 
-Print, in order: the table of files written or updated, the detected values
+Print, in order: the table of files written or updated, the organisation
+defaults applied and the skill folder they came from, the detected values
 that were accepted without asking, the keys left at default that the owner
 may want to revisit (`roles` empty, `design_system` null, `validation` null),
 a pointer to `references/ci-guard.md` for the CI check that protects the

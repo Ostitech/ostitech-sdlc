@@ -34,11 +34,21 @@ and only missing keys are filled.
 | `context.knowledge_index` | `false` | Asked when an index is detected |
 | `learning.gotchas_dir`, `learning.decisions_dir` | `null` | Asked; detected folders offered |
 
+## Organisation defaults
+
+A vendored skill folder may carry `sdlc.defaults.yaml`: a partial config in
+the same shape as `.sdlc/config.yaml`, validated against the same schema. Its
+values take precedence over detection and the built-in defaults, and lose to
+an existing config and to answers given during the run. Keys `repo`,
+`workspace` and `validation` are ignored in it. An `extensions/` folder
+beside it supplies the initial `.sdlc/extensions/<skill>.md` files. See
+`references/org-defaults.md`.
+
 ## Other files written
 
 | File | From |
 |---|---|
 | `.sdlc/sdlc.config.schema.json` | `templates/sdlc.config.schema.json` |
-| `.sdlc/extensions/<skill>.md` | `templates/extensions/<skill>.md` |
+| `.sdlc/extensions/<skill>.md` | The organisation defaults' `extensions/<skill>.md`, else `templates/extensions/<skill>.md` |
 | `<artefact dirs>/.gitkeep` | Created |
 | `CLAUDE.md` block | `references/claude-md-block.md` |

@@ -30,7 +30,7 @@ Vendored, pinned to a release, copied rather than symlinked so it works on
 Windows without Developer Mode:
 
 ```bash
-npx skills add ostitech/ostitech-sdlc@v0.1.3 --all -a claude-code --copy -y
+npx skills add ostitech/ostitech-sdlc@v0.1.4 --all -a claude-code --copy -y
 ```
 
 Commit `.claude/skills/`, `.agents/skills/` and `skills-lock.json`. Then run
@@ -92,11 +92,16 @@ Two rules keep the merge clean and the boundary honest:
 
 - The core skill folders under `skills/` are never edited in the copy. A
   change the extension points cannot express is a pull request here.
-- Organisation-specific skills and templates live in their own folders in the
-  copy (for example `skills/<org>-<name>/` and `overlay/`), so an install with
-  `--all` from the copy gives a repository the core plus the organisation's
-  additions in one step. Repository-level values and additions still go in
-  that repository's `.sdlc/` folder.
+- Organisation-specific skills live in their own folders in the copy
+  (`skills/<org>-<name>/`), so an install with `--all` from the copy gives a
+  repository the core plus the organisation's additions in one step.
+  Repository-level values and additions still go in that repository's
+  `.sdlc/` folder.
+- Values the organisation sets the same way everywhere (tracker, id scheme,
+  learning directories, initial extensions) go in a `skills/<org>-defaults/`
+  folder holding `sdlc.defaults.yaml`. `init-app` reads it before asking
+  anything. Format and precedence: the `init-app` skill's
+  `references/org-defaults.md`.
 
 ## Layout
 
