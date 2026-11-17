@@ -29,7 +29,7 @@ A plan opens with a design section (decisions, documents reconciled, data
 changes, scope committed for this delivery, risks), then the shared material an
 implementer needs once (patterns to mirror, how to run and validate), then one
 section per phase. Durable decisions made in a plan are promoted to decision
-records at wrap-up; the plan is not the long-term home of a decision.
+records at close-out; the plan is not the long-term home of a decision.
 
 There is no third document between them. A product requirements document that
 also carries technical design and a schedule is a PRD that has swallowed two
@@ -124,12 +124,12 @@ The lightest lane is the default. Choosing a heavier lane than the work needs
 is the most common failure of structured workflows, and the skills ask the lane
 question explicitly at the start rather than assuming the heaviest.
 
-## Wrap-up
+## Close-out
 
-Implementation ends with a wrap-up section appended to the plan: what shipped
+Implementation ends with a close-out section appended to the plan: what shipped
 against the acceptance criteria, deviations, unplanned bugs found, decisions
 that should outlive this work, and follow-ups. It is capped at a page. The
-wrap-up is the learning loop: unplanned bugs feed the repository's gotchas,
+close-out is the learning loop: unplanned bugs feed the repository's gotchas,
 durable decisions become decision records, and the next plan reads both.
 
 ## What the skills enforce
@@ -140,8 +140,7 @@ durable decisions become decision records, and the next plan reads both.
 | `revise` | Revision adds or changes an acceptance criterion; parent amended inline |
 | `plan` | Trigger resolved to one of the four kinds; design section before phases; contract phase first; tests and docs as done-criteria; non-agent work routed to the tracker |
 | `implement` | Checkpoint discipline; amend not regenerate; stop at human gates |
-| `review` | Verdict bound to acceptance criteria and plan conformance; advisory findings filed, not fixed |
-| `wrap-up` | Page cap; promotion of decisions and gotchas |
+| `close-plan` | Page cap; promotion of decisions and gotchas |
 | `init-app` | Config and extensions scaffold for a new repository |
 
 Everything client-specific (identifiers, directories, role vocabulary, tracker,

@@ -102,7 +102,7 @@ check, and never weaken a check to make it pass.
 
 - In `all` mode, return to step 2.
 - When every phase is checkpointed, set `status: complete` in the frontmatter,
-  commit that, and tell the user to run the `wrap-up` skill.
+  commit that, and tell the user to run the `close-plan` skill.
 - Otherwise report the phase just completed, the next phase, and anything the
   next phase is waiting on.
 

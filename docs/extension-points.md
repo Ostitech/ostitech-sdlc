@@ -59,14 +59,12 @@ validation:                      # commands the plan and implement skills use; d
   e2e: null
   build: null
 
-reviewers: []                    # extra reviewer skills the review skill runs, by name
-
 context:
   always_read: []                # files the plan skill reads before exploring, every time
   knowledge_index: false         # reserved: enables the tagged-docs retrieval protocol
 
 learning:
-  gotchas_dir: null              # where wrap-up files recurring, non-obvious failures
+  gotchas_dir: null              # where close-out files recurring, non-obvious failures
   decisions_dir: null            # where promoted decision records go
 ```
 
@@ -114,18 +112,11 @@ gracefully.
 | `## validation` | Commands or checks added to every phase's validation |
 | `## after-phase` | Steps run after each checkpoint commit |
 
-### `review`
+### `close-plan`
 
 | Point | Applied |
 |---|---|
-| `## gates` | Findings that can fail the review, in addition to acceptance criteria and plan conformance |
-| `## advisory` | Finding categories to file but never block on |
-
-### `wrap-up`
-
-| Point | Applied |
-|---|---|
-| `## sections` | Extra wrap-up sections |
+| `## sections` | Extra close-out sections |
 | `## promote` | Where each kind of durable learning is filed, overriding `learning.*` in config |
 
 ## Versioning

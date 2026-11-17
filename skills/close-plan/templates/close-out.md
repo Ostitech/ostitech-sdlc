@@ -1,4 +1,4 @@
-## Wrap-up
+## Close-out
 
 _{YYYY-MM-DD} · PR {reference} · one page maximum_
 

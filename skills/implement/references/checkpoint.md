@@ -1,8 +1,8 @@
 # Checkpoint format
 
 A checkpoint is one commit that carries the phase's code and the plan's
-updated Checkpoint line together. Both use fixed formats so the review and
-wrap-up skills can parse them, and the commit is located by its subject.
+updated Checkpoint line together. Both use fixed formats so the close-plan
+skill can parse them, and the commit is located by its subject.
 
 ## Commit message
 

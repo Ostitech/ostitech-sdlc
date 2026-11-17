@@ -57,7 +57,7 @@ genuinely are.
 ## Recoverable versus not
 
 - A flaky test that passes on re-run without changes: note it as an unplanned
-  problem, continue, and file it at wrap-up. Do not count it as an attempt.
+  problem, continue, and file it at close-out. Do not count it as an attempt.
 - A failure in a check unrelated to this phase's files (pre-existing
   breakage): report it, confirm with the user whether to proceed, and record
   the decision in the checkpoint. Do not fix unrelated code inside the phase.

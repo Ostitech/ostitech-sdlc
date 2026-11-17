@@ -1,6 +1,6 @@
 # Decision record template
 
-Drafted by wrap-up for each decision the plan marked durable. Status starts
+Drafted by close-out for each decision the plan marked durable. Status starts
 as `proposed`; the team accepts it through its normal review. Number it after
 the highest existing record in `learning.decisions_dir`.
 

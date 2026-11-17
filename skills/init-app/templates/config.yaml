@@ -42,8 +42,6 @@ validation:             # null = discover from package.json / Makefile at run ti
   e2e: null
   build: null
 
-reviewers: []           # extra reviewer skills, by name
-
 context:
   always_read: []       # files the plan skill reads before exploring, every time
   knowledge_index: false

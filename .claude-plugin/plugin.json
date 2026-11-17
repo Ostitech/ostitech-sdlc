@@ -1,10 +1,10 @@
 {
   "name": "ostitech-sdlc",
   "version": "0.1.0",
-  "description": "A light, config-driven delivery procedure for Claude Code: PRD, plan, phased implementation, verdict-first review and wrap-up. Client specifics live in the adopting repo's .sdlc/ folder, never in the skills.",
+  "description": "A light, config-driven delivery procedure for Claude Code: PRD, plan, phased implementation and close-out. Client specifics live in the adopting repo's .sdlc/ folder, never in the skills.",
   "author": {
     "name": "Ostitech"
   },
   "license": "Apache-2.0",
-  "keywords": ["sdlc", "prd", "plan", "implementation", "review", "agentic"]
+  "keywords": ["sdlc", "prd", "plan", "implementation", "agentic"]
 }

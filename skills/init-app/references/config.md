@@ -23,7 +23,6 @@ and only missing keys are filled.
 | `design_system.path`, `design_system.guide` | `null` | Asked when a candidate folder is detected |
 | `placeholder_data` | `null` | Asked only when a design system is set |
 | `validation.*` | `null` | Detected from the project manifest |
-| `reviewers` | `[]` | Default |
 | `context.always_read` | `[]` | Default |
 | `context.knowledge_index` | `false` | Default |
 | `learning.gotchas_dir`, `learning.decisions_dir` | `null` | Asked; detected folders offered |

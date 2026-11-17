@@ -1,7 +1,7 @@
 # Gotcha template
 
 One file per unplanned problem worth keeping: non-obvious cause, or likely to
-recur. Filed under `learning.gotchas_dir` by wrap-up. Short enough that the
+recur. Filed under `learning.gotchas_dir` by close-out. Short enough that the
 next plan can read ten of them.
 
 Filename: `{area}-{slug}.md`.

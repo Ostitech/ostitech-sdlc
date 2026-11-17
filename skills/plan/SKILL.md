@@ -89,7 +89,7 @@ Write the design section before any phase. It holds:
 
 - **Decisions.** Each choice with the alternatives rejected and whether it is
   durable (should outlive this work). Durable decisions get promoted at
-  wrap-up.
+  close-out.
 - **Documents reconciled.** Every decision record, pattern or reference doc the
   work intersects, with a note: `follow`, `extend`, `supersede: <new id>`, or
   `interim: <follow-up>`. A change that contradicts a record needs

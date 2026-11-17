@@ -79,7 +79,6 @@
         "build": { "type": ["string", "null"] }
       }
     },
-    "reviewers": { "type": "array", "items": { "type": "string" } },
     "context": {
       "type": "object",
       "additionalProperties": false,

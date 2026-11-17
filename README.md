@@ -5,8 +5,7 @@ development, packaged as [Agent Skills](https://agentskills.io) for Claude
 Code and any agent that reads `SKILL.md`.
 
 Two documents (PRD and plan), one plan per piece of work, phased
-implementation with checkpoints, a verdict-first review bound to acceptance
-criteria, and a one-page wrap-up that feeds the next plan. Everything that
+implementation with checkpoints, and a one-page close-out that feeds the next plan. Everything that
 varies by organisation lives in the adopting repository's `.sdlc/` folder.
 The skills themselves are never edited in place.
 
@@ -22,9 +21,7 @@ contract.
 | `revise` | A revision to a shipped PRD: delta document, parent amended inline |
 | `plan` | The single implementation plan: design section, shared context, verification-bounded phases |
 | `implement` | Execute plan phases with checkpoint discipline: validation green, commit, note |
-| `review` | Verdict-first review bound to acceptance criteria and plan conformance |
-| `review-conformance` | Read-only reviewer the review skill forks to compare a diff against its plan |
-| `wrap-up` | Close out a plan: outcomes, deviations, gotchas, decisions promoted, follow-ups |
+| `close-plan` | Close out a plan: outcomes, deviations, gotchas, decisions promoted, follow-ups |
 | `init-app` | Scaffold `.sdlc/` configuration and extensions in a repository |
 
 ## Install into a repository

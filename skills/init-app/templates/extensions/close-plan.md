@@ -1,13 +1,13 @@
-# Wrap-up extensions
+# Close-plan extensions
 
-Each level-two heading below is an extension point of the `wrap-up` skill.
+Each level-two heading below is an extension point of the `close-plan` skill.
 Content under a heading is applied at that point. Delete the headings you do
 not need; an empty file is a no-op. Keep content declarative. Procedure
 belongs in the skill, not here.
 
 ## sections
 
-<!-- Extra wrap-up sections.
+<!-- Extra close-out sections.
 Example:
 ### Deploy readiness
 | Environment | Switch | State after merge |

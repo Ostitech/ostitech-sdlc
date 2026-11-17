@@ -9,7 +9,7 @@ exists, replace its contents instead of appending.
 ## Delivery workflow
 
 This repository uses the SDLC skills (`/prd`, `/revise`, `/plan`,
-`/implement`, `/review`, `/wrap-up`). Configuration and repo-specific
+`/implement`, `/close-plan`). Configuration and repo-specific
 extensions live in `.sdlc/config.yaml` and `.sdlc/extensions/`; never edit
 the vendored skills. PRDs live in `{prd_dir}/`, plans in `{plan_dir}/`.
 

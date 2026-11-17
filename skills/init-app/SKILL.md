@@ -6,8 +6,8 @@ argument-hint: [--yes to accept every detected default]
 
 # Init app
 
-Prepare a repository so the `prd`, `revise`, `plan`, `implement`, `review`
-and `wrap-up` skills can run in it. Everything written is configuration and
+Prepare a repository so the `prd`, `revise`, `plan`, `implement` and
+`close-plan` skills can run in it. Everything written is configuration and
 scaffolding the repository owns; nothing under the skills folder is touched.
 
 **Input:** $ARGUMENTS (`--yes` accepts detected defaults without asking).
@@ -68,7 +68,7 @@ Create or update, preserving anything that already exists:
    file documents the contract.
 2. `.sdlc/sdlc.config.schema.json`, copied from
    `templates/sdlc.config.schema.json`.
-3. `.sdlc/extensions/{prd,revise,plan,implement,review,wrap-up}.md` from
+3. `.sdlc/extensions/{prd,revise,plan,implement,close-plan}.md` from
    `templates/extensions/`. Skip any that already exist.
 4. The artefact directories from `artefacts.*`, each with a `.gitkeep`, plus
    `artefacts.mockup_dir` when a design system is set.

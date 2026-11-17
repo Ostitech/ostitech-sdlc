@@ -8,7 +8,7 @@ Contract version bumps are called out explicitly.
 ### Added
 - Methodology and extension-points documents.
 - Configuration contract version 1 (`.sdlc/config.yaml`, schema shipped with `init-app`).
-- Skills: `prd`, `revise`, `plan`, `implement`, `review`, `review-conformance`, `wrap-up`, `init-app`.
+- Skills: `prd`, `revise`, `plan`, `implement`, `close-plan`, `init-app`.
 - Plugin and marketplace manifests so the repository also installs as a Claude Code plugin.
 - Eval skeleton for `claude plugin eval`.
 

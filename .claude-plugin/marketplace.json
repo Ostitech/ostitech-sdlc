@@ -8,7 +8,7 @@
     {
       "name": "ostitech-sdlc",
       "source": ".",
-      "description": "PRD, plan, phased implementation, verdict-first review and wrap-up skills, parametrised per repository through .sdlc/config.yaml"
+      "description": "PRD, plan, phased implementation and close-out skills, parametrised per repository through .sdlc/config.yaml"
     }
   ]
 }

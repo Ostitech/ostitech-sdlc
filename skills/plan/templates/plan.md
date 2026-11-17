@@ -27,7 +27,7 @@ linking it and naming the acceptance criteria this plan delivers.}
 |---|---|---|---|---|
 | D1 | | | | yes / no |
 
-Durable decisions are promoted to decision records at wrap-up.
+Durable decisions are promoted to decision records at close-out.
 
 ### Documents reconciled
 
@@ -117,6 +117,6 @@ Non-agent work recorded on the tracker item, listed here for the reader only.
 |---|---|---|
 | {sign-off, deploy, external team change, pilot} | | |
 
-## Wrap-up
+## Close-out
 
-_(appended by the wrap-up skill)_
+_(appended by the close-plan skill)_

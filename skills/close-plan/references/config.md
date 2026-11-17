@@ -1,4 +1,4 @@
-# Configuration read by the wrap-up skill
+# Configuration read by the close-plan skill
 
 Contract versions read: **1**.
 
@@ -14,7 +14,7 @@ keys take these defaults.
 | `learning.gotchas_dir` | `null` | Where unplanned problems worth keeping are filed; null lists them instead |
 | `learning.decisions_dir` | `null` | Where durable decisions are drafted as records; null lists them instead |
 
-Extensions: `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/wrap-up.md`, headings
+Extensions: `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/close-plan.md`, headings
 `sections`, `promote`.
 
 `promote` content overrides `learning.*` for the kinds of learning it names,
