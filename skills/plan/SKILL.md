@@ -61,12 +61,10 @@ Establish the invariant that must hold afterwards, the observable result that
 proves it, and the constraints that are genuinely fixed. Ask the user only when
 an ambiguity would produce materially different plans.
 
-**Repositories.** Decide which repositories the work changes. Only this one:
-leave `repos:` empty. More than one: the plan belongs in a workspace
-repository (`repo.kind: workspace`). If this repository is an `app`, say so
-and stop, recommending the plan be written in the workspace. In a workspace,
-list the repositories in the plan's `repos:` frontmatter, primary first (where
-most change lands), each matching an entry in `workspace.repos`.
+**Repositories.** Work that changes only this repository leaves `repos:`
+empty. Work that changes several belongs in a workspace repository
+(`repo.kind: workspace`): in an `app`, stop and say so; in a workspace, list
+them in `repos:`, primary first, each matching an entry in `workspace.repos`.
 
 ## 2. Gather context
 
@@ -80,11 +78,10 @@ In this order, and record what was read for the plan's mandatory-reading list:
    titles; read any record whose title plausibly intersects this work.
 
 Then explore the codebase. For anything beyond a localised change, launch
-explorer agents in parallel using the prompts in `references/exploration.md`:
-one to find *where* relevant code, tests, config and analogous features live;
-one to trace *how* the current behaviour flows. Ask each for the five to ten
-files that matter most, then read those files yourself. The planner owns the
-synthesis and must have seen the decisive code.
+explorer agents in parallel with the prompts in `references/exploration.md`
+(one for *where* the relevant code lives, one for *how* the behaviour flows),
+ask each for the five to ten files that matter, then read those files
+yourself. The planner owns the synthesis and must have seen the decisive code.
 
 Collect `file:line` references, existing primitives and extension points,
 validation commands (from `validation.*` or discovered from the project's
@@ -144,7 +141,17 @@ and an empty **Checkpoint** line for the implementer. More than about five
 phases is a signal to look for ceremony or tracker items that crept in; say so
 if it happens.
 
-## 6. Write, check, offer
+## 6. UAT script
+
+Write the UAT script following `references/uat.md`: one scenario per
+delivered acceptance criterion, with the role and data to start from,
+numbered steps a person performs, and the observation that proves it. A
+bug-fix plan uses its reproduction steps; a technical plan may state `none`
+with the reason. It runs locally at the end of implementation, live after the
+PR, and from the tracker by the product owner, so write it for someone who
+did not build the feature.
+
+## 7. Write, check, offer
 
 1. Write the file to `artefacts.plan_dir/{PLAN_ID}.plan.md` from
    `templates/plan.md`. If a plan with that id exists, stop and suggest
@@ -153,9 +160,10 @@ if it happens.
    when access exists; otherwise list them for the user to add.
 3. Run the checks: every delivered acceptance criterion maps to at least one
    phase's done-criteria; no data row is verified by `TODO`; no forbidden phase
-   names; phase 1 is a contract or a spike; in a multi-repo plan every phase
-   names one repository from `repos:` and phase 1 is in the providing
-   repository; plus everything under the `checks` extension point. Report any
+   names; phase 1 is a contract or a spike; every delivered criterion has a
+   UAT scenario; in a multi-repo plan every phase names one repository from
+   `repos:` and phase 1 is in the providing repository; plus everything under
+   the `checks` extension point. Report any
    failure and fix it before offering the plan.
 4. Offer the plan for approval with a five-line summary: kind, criteria
    delivered and deferred, phase list, hinge if any, open decisions. On the

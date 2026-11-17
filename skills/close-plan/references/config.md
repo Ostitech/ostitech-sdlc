@@ -12,6 +12,8 @@ keys take these defaults.
 | `workspace.repos` | `[]` | Locating each repository's PR for a multi-repo plan |
 | `tracker.type` | `none` | Whether follow-ups are created as tracker items |
 | `tracker.issue_ref` | `#{n}` | How follow-up references are written |
+| `tracker.uat_state` | `null` | State the tracker item moves to after the UAT handoff; null means no transition |
+| `environments.uat` | `null` | Where the live UAT run happens; null means ask the user |
 | `learning.gotchas_dir` | `null` | Where unplanned problems worth keeping are filed; null lists them instead |
 | `learning.decisions_dir` | `null` | Where durable decisions are drafted as records; null lists them instead |
 

@@ -3,6 +3,11 @@
 All notable changes to the skills and the configuration contract.
 Contract version bumps are called out explicitly.
 
+## v0.1.6
+
+### Added
+- UAT script: the plan carries one click-through scenario per delivered acceptance criterion (`plan` step 6, `references/uat.md`, template section). `implement` runs it locally once every phase is checkpointed and will not mark the plan complete on a failing row. `close-plan` runs it live after the PR has deployed, records both result columns in the Close-out, writes the script onto the tracker item and moves the item to `tracker.uat_state`. New optional config keys `tracker.uat_state` and `environments.uat`. Additive; contract version stays 1.
+
 ## v0.1.5
 
 ### Fixed

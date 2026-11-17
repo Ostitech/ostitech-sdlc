@@ -46,6 +46,10 @@ ids:
 tracker:
   type: none                     # github | ado | none
   issue_ref: "#{n}"              # how an issue is written in commits and plans
+  uat_state: null                # state close-plan moves the item to once the UAT script and results are on it
+
+environments:
+  uat: null                      # URL the live UAT run uses after the PR deploys; null: close-plan asks
 
 branches:
   prd: "docs/{id}"

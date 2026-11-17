@@ -16,5 +16,6 @@ keys take these defaults.
 Extensions: `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/implement.md`, headings
 `before-phase`, `validation`, `after-phase`.
 
-The plan itself is the primary source for branch, validation commands, and
-phase structure. Config is consulted only where the plan is silent.
+The plan itself is the primary source for branch, validation commands,
+phase structure and the UAT script. Config is consulted only where the plan
+is silent.

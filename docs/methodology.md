@@ -183,6 +183,22 @@ what each repository carries itself. A consumer repository should not need a
 provider's source: publish the contract (a schema package, an API
 specification, a typed client) and the consumer plans against that.
 
+## User acceptance testing
+
+The acceptance criteria say what must be true. The **UAT script** says how a
+person checks it: start as this role with this data, click this, enter that,
+see this. It is the criteria in executable form, written in the plan because
+it needs implementation knowledge, and written for someone who did not build
+the feature because the product owner runs it last.
+
+It runs three times. Locally at the end of implementation, before the plan is
+complete, so nothing reaches a pull request that a person has not clicked
+through. Live at close-out, once the pull request has deployed to the
+validation environment. Then from the tracker item, by the product owner,
+after close-out has written the script and both result columns onto it and
+moved it to the validation state. A failure in the local run blocks
+completion; a failure in the live run blocks the handoff.
+
 ## Close-out
 
 Implementation ends with a close-out section appended to the plan: what shipped
@@ -197,9 +213,9 @@ durable decisions become decision records, and the next plan reads both.
 |---|---|
 | `prd` | Lane question; no design in the PRD; acceptance criteria present; roles mapped |
 | `revise` | Revision adds or changes an acceptance criterion; parent amended inline |
-| `plan` | Trigger resolved to one of the four kinds; design section before phases; contract phase first; tests and docs as done-criteria; non-agent work routed to the tracker; one repository per phase in a cross-repo plan |
-| `implement` | Checkpoint discipline; amend not regenerate; stop at human gates |
-| `close-plan` | Page cap; promotion of decisions and gotchas |
+| `plan` | Trigger resolved to one of the four kinds; design section before phases; contract phase first; tests and docs as done-criteria; non-agent work routed to the tracker; one repository per phase in a cross-repo plan; a UAT scenario per delivered criterion |
+| `implement` | Checkpoint discipline; amend not regenerate; stop at human gates; local UAT run before the plan is complete |
+| `close-plan` | Live UAT run and tracker handoff; page cap; promotion of decisions and gotchas |
 | `init-app` | Config and extensions scaffold for a new repository, application or workspace |
 
 Everything client-specific (identifiers, directories, role vocabulary, tracker,

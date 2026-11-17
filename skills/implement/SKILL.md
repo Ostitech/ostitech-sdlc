@@ -111,8 +111,12 @@ check, and never weaken a check to make it pass.
 ## 7. Continue or finish
 
 - In `all` mode, return to step 2.
-- When every phase is checkpointed, set `status: complete` in the frontmatter,
-  commit that, and tell the user to run the `close-plan` skill.
+- When every phase is checkpointed, run the plan's **UAT script** locally
+  following `references/uat.md` and fill its `Local` column. Only when every
+  row passes or is `n/a`, set `status: complete` in the frontmatter, commit
+  that with the subject `{PLAN_ID} UAT local`, and tell the user to run the
+  `close-plan` skill. A failing row is a failing validation: fix, re-run,
+  three attempts, then stop and report.
 - Otherwise report the phase just completed, the next phase, and anything the
   next phase is waiting on.
 

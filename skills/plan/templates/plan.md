@@ -112,6 +112,16 @@ Each phase ends at a checkpoint: validation green, a commit, a note under
 
 **Checkpoint:** _(filled at implementation)_
 
+## UAT script
+
+One scenario per delivered acceptance criterion, written for someone who did
+not build the feature. Results are filled by `implement` (local) and
+`close-plan` (live).
+
+| # | AC | Start as | Steps | Expect | Local | Live |
+|---|---|---|---|---|---|---|
+| U1 | AC1 | {role, data or state} | 1. {open …} 2. {click …} 3. {enter …} | {what is visible or has changed} | | |
+
 ## Milestones outside this plan
 
 Non-agent work recorded on the tracker item, listed here for the reader only.

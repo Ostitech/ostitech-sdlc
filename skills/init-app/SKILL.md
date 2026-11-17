@@ -119,7 +119,8 @@ reporting.
 Print, in order: the table of files written or updated, the organisation
 defaults applied and the skill folder they came from, the detected values
 that were accepted without asking, the keys left at default that the owner
-may want to revisit (`roles` empty, `design_system` null, `validation` null),
+may want to revisit (`roles` empty, `design_system` null, `validation` null,
+`environments.uat` and `tracker.uat_state` null),
 a pointer to `references/ci-guard.md` for the CI check that protects the
 vendored skills, and the one manual step remaining: review and commit. For a
 workspace, also list the entries in `workspace.repos` that have no `.sdlc/`

@@ -22,6 +22,8 @@ and only missing keys are filled.
 | `tracker.type` | `none` | Asked; default from the git remote and tracker signals in the repository |
 | `tracker.issue_ref` | `#{n}` | Derived from tracker type |
 | `tracker.org`, `tracker.project` | unset | Parsed from an Azure DevOps remote |
+| `tracker.uat_state` | `null` | Default; listed in the report as worth setting |
+| `environments.uat` | `null` | Default; listed in the report as worth setting |
 | `branches.*` | `docs/{id}`, `feat/{id}`, `fix/{id}` | Default |
 | `roles` | `[]` | Asked; roles declared in code offered |
 | `design_system.path`, `design_system.guide` | `null` | Asked when a candidate folder is detected |
