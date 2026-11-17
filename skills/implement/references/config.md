@@ -8,6 +8,7 @@ keys take these defaults.
 | Key | Default | Used for |
 |---|---|---|
 | `artefacts.plan_dir` | `plans` | Resolving a bare plan filename |
+| `workspace.repos` | `[]` | Resolving each repository of a multi-repo plan to a local checkout (`path`) |
 | `branches.work`, `branches.fix` | `feat/{id}`, `fix/{id}` | Fallback branch name when the plan frontmatter has none |
 | `tracker.issue_ref` | `#{n}` | Issue reference in commit bodies for bug-fix plans |
 | `validation.*` | `null` | Fallback validation commands when the plan has no Validation commands block; when null, discover from `package.json` scripts, `Makefile`, `pyproject.toml` or equivalent |

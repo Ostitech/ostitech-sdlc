@@ -25,6 +25,13 @@ repository's CI should fail when a vendored skill has local changes
 ```yaml
 version: 1
 
+repo:
+  kind: app                      # app: builds and ships code; workspace: a foundation repo that holds cross-repo PRDs, plans and rules
+  name: null                     # how plans refer to this repo; null: the folder name
+
+workspace:                       # read only when repo.kind is workspace
+  repos: []                      # name, path (local checkout relative to the workspace, if nested), url
+
 artefacts:
   prd_dir: prds                  # PRDs and their revisions
   prd_layout: folder             # folder: prds/<id>/prd.md, revisions and mockups inside; flat: prds/<id>.md

@@ -18,6 +18,7 @@ keys take these defaults.
 | `placeholder_data` | `null` | Sample-data context for mockups |
 | `tracker.type` | `none` | Whether a tracker item is created at sign-off |
 | `context.always_read` | `[]` | Read before intake |
+| `repo.kind` | `app` | A PRD spanning repositories belongs in a `workspace` repository |
 
 Extensions: `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/prd.md`, headings
 `questions`, `sections`, `checks`.

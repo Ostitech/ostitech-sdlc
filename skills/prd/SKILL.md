@@ -33,6 +33,10 @@ Decide what the ask is before asking anything else:
 | A small adjustment nobody needs to sign off | Say so and recommend plan mode; continue only if the user insists |
 | A new capability, screen, flow, report or integration | Continue |
 
+If the behaviour spans more than one repository and `repo.kind` is `app`,
+say so: the PRD belongs in the workspace repository, where the plan can list
+every repository it changes. Continue here only if the user confirms.
+
 Check `artefacts.prd_dir` for an existing PRD covering the same area, by
 folder or file name and by title. If one exists and has shipped, this is
 probably a revision; say so. If one exists with the slug you would choose,

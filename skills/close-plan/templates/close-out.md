@@ -1,6 +1,6 @@
 ## Close-out
 
-_{YYYY-MM-DD} · PR {reference} · one page maximum_
+_{YYYY-MM-DD} · PR {reference; one per repository in a multi-repo plan} · one page maximum_
 
 ### Outcome against acceptance criteria
 

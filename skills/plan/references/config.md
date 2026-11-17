@@ -7,6 +7,8 @@ keys take these defaults.
 
 | Key | Default | Used for |
 |---|---|---|
+| `repo.kind` | `app` | Whether a plan may list more than one repository (`workspace` only) |
+| `workspace.repos` | `[]` | The repositories a multi-repo plan may name |
 | `artefacts.plan_dir` | `plans` | Where the plan file is written |
 | `artefacts.prd_dir` | `prds` | Where PRDs and revisions are looked up |
 | `artefacts.investigations_dir` | `investigations` | Bug investigations read before a bug-fix plan |

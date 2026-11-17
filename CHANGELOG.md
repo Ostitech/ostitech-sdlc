@@ -3,6 +3,19 @@
 All notable changes to the skills and the configuration contract.
 Contract version bumps are called out explicitly.
 
+## v0.1.2
+
+### Added
+- Cross-repo work: `repo.kind` (`app` | `workspace`), `repo.name` and `workspace.repos` in the config; a plan may list `repos:` when written in a workspace, with one repository per phase, contract phase in the providing repository, one PR per repository, and a checkpoint line that names the repository. Methodology section "Cross-repo work". Additive; contract version stays 1.
+- `init-app` detects a workspace (nested git repositories, no build), fills `workspace.repos`, and writes a workspace variant of the CLAUDE.md block.
+- `init-app` detects a knowledge index and asks about `context.knowledge_index`.
+- `init-app` warns when `.gitignore` is an allow-list, since the scaffold is untracked until allow-listed.
+
+### Changed
+- `init-app` always asks the tracker question, with a default from the remote host and tracker signals in the repository (`AB#` references, pipelines files, issue templates), instead of assuming the code host is the tracker.
+- `init-app` offers an explicit choice when artefacts already exist: continue in the existing folders with their layout and id pattern, or adopt the defaults and leave the old content in place.
+- `prd` and `plan` route work that spans repositories to the workspace repository.
+
 ## v0.1.1
 
 ### Fixed

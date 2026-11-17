@@ -19,3 +19,25 @@ behaviour → PRD, then plan. Someone must sign off the architecture → decisio
 record, then plan.
 <!-- sdlc-skills:end -->
 ```
+
+## Workspace variant
+
+When `repo.kind` is `workspace`, append this block instead:
+
+```markdown
+<!-- sdlc-skills:start -->
+## Delivery workflow
+
+This is a workspace repository: it holds the PRDs and plans whose acceptance
+criteria span more than one repository, in `{prd_dir}/` and `{plan_dir}/`.
+Work that changes one repository is planned and tracked in that repository.
+Configuration lives in `.sdlc/config.yaml`; `workspace.repos` lists the
+repositories a cross-repo plan may name. The skills (`/prd`, `/revise`,
+`/plan`, `/implement`, `/close-plan`) are vendored; never edit them.
+
+A cross-repo plan names one repository per phase, contract first, and lands
+as one pull request per repository. Open this workspace to investigate or
+plan across repositories; open the repository a phase changes to implement
+it.
+<!-- sdlc-skills:end -->
+```

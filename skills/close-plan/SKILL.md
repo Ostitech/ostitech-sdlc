@@ -29,8 +29,9 @@ gets a one-page closing section and is marked complete.
 2. If a **Close-out** section already has content, stop and say the plan is
    already closed out. Do not overwrite it.
 3. Find the PR for the plan's branch when PR access exists and note its
-   reference and merge state. Close-out normally runs after merge; if the PR is
-   open, say so and continue only on the user's confirmation.
+   reference and merge state; in a multi-repo plan, one PR per repository in
+   `repos:`. Close-out normally runs after merge; if a PR is open, say so and
+   continue only on the user's confirmation.
 
 ## 2. Collect outcomes
 
@@ -90,7 +91,8 @@ reference. Otherwise list them with an owner column for the user.
    if any, and add a revision-history row linking the plan when the document
    has one.
 5. Commit the plan edit, the PRD edit, and any gotcha or decision files
-   together with the message `{PLAN_ID} close-out`.
+   together with the message `{PLAN_ID} close-out`. In a multi-repo plan
+   this commit goes to the workspace repository.
 
 ## 7. Report
 

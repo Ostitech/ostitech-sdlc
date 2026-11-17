@@ -5,6 +5,7 @@ kind: {feature | revision | bug-fix | technical}
 trigger: {path or reference to the PRD, revision, issue, decision record, or "inline"}
 branch: {branch name}
 tracker: {tracker item reference, or none}
+repos: []                     # more than one entry only in a workspace repo; primary first, each listed in workspace.repos
 status: draft                 # draft | approved | in-progress | complete
 created: {YYYY-MM-DD}
 ---
@@ -86,6 +87,7 @@ Each phase ends at a checkpoint: validation green, a commit, a note under
 
 ### Phase 1 — {Contract: schema, types, interfaces, or the spike}
 
+**Repo:** {repository name; multi-repo plans only, the providing repository}
 **Delivers:** {what exists after this phase}
 **Tasks:**
 1. {CREATE | UPDATE} `{path}` — {what}
@@ -99,6 +101,7 @@ Each phase ends at a checkpoint: validation green, a commit, a note under
 
 ### Phase 2 — {Name}
 
+**Repo:** {multi-repo plans only}
 **Delivers:**
 **Depends on:** Phase 1
 **Tasks:**

@@ -150,6 +150,39 @@ The lightest lane is the default. Choosing a heavier lane than the work needs
 is the most common failure of structured workflows, and the skills ask the lane
 question explicitly at the start rather than assuming the heaviest.
 
+## Cross-repo work
+
+Most work that spans repositories is one plan followed by single-repository
+changes joined by a contract. The repository stays the unit of
+implementation, branch, pull request and CI. What is cross-repo is the
+planning, the ordering, and the record that the pieces were one piece of
+work.
+
+- A **workspace repository** (`repo.kind: workspace`) owns the PRDs and plans
+  whose acceptance criteria touch more than one repository, along with the
+  organisation's rules, decision records and release machinery. It has no
+  build. An application repository owns everything that changes only itself.
+- A cross-repo plan lists its repositories in its frontmatter, primary first.
+  Every phase names the one repository it changes, because a repository
+  boundary is a verification boundary. The contract phase lands in the
+  repository that provides the contract; consumers follow, so each
+  repository's change is backward-compatible on its own and the deploy order
+  is not load-bearing.
+- Implementation runs one phase at a time in that phase's repository, on a
+  branch of the same name in each, with one pull request per repository. The
+  checkpoint records which repository the phase changed, and the plan edit is
+  committed to the workspace. Close-out lists every pull request.
+- Sessions: open the workspace to investigate or plan across repositories.
+  Open the repository a phase changes to implement it, adding the other
+  repositories as extra directories when the agent needs to read them. A
+  session rooted in the workspace does not get an application repository's
+  own guidance, settings or vendored skills.
+
+What survives the move from a developer's machine to a cloud session or CI is
+what each repository carries itself. A consumer repository should not need a
+provider's source: publish the contract (a schema package, an API
+specification, a typed client) and the consumer plans against that.
+
 ## Close-out
 
 Implementation ends with a close-out section appended to the plan: what shipped
@@ -164,10 +197,10 @@ durable decisions become decision records, and the next plan reads both.
 |---|---|
 | `prd` | Lane question; no design in the PRD; acceptance criteria present; roles mapped |
 | `revise` | Revision adds or changes an acceptance criterion; parent amended inline |
-| `plan` | Trigger resolved to one of the four kinds; design section before phases; contract phase first; tests and docs as done-criteria; non-agent work routed to the tracker |
+| `plan` | Trigger resolved to one of the four kinds; design section before phases; contract phase first; tests and docs as done-criteria; non-agent work routed to the tracker; one repository per phase in a cross-repo plan |
 | `implement` | Checkpoint discipline; amend not regenerate; stop at human gates |
 | `close-plan` | Page cap; promotion of decisions and gotchas |
-| `init-app` | Config and extensions scaffold for a new repository |
+| `init-app` | Config and extensions scaffold for a new repository, application or workspace |
 
 Everything client-specific (identifiers, directories, role vocabulary, tracker,
 design system, extra gates and sections) comes from the repository's

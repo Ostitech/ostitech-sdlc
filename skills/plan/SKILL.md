@@ -61,6 +61,13 @@ Establish the invariant that must hold afterwards, the observable result that
 proves it, and the constraints that are genuinely fixed. Ask the user only when
 an ambiguity would produce materially different plans.
 
+**Repositories.** Decide which repositories the work changes. Only this one:
+leave `repos:` empty. More than one: the plan belongs in a workspace
+repository (`repo.kind: workspace`). If this repository is an `app`, say so
+and stop, recommending the plan be written in the workspace. In a workspace,
+list the repositories in the plan's `repos:` frontmatter, primary first (where
+most change lands), each matching an entry in `workspace.repos`.
+
 ## 2. Gather context
 
 In this order, and record what was read for the plan's mandatory-reading list:
@@ -125,6 +132,11 @@ Cut phases by verification boundary, following `references/phases.md`:
 - Non-agent work (human sign-off, external teams, deploys, pilots) goes in the
   **Milestones outside this plan** table and onto the tracker item, never into
   a phase.
+- In a plan with more than one repository, every phase names the one
+  repository it changes on a **Repo:** line; a repository boundary is a
+  verification boundary. The contract phase lands in the repository that
+  provides the contract and consumers follow, so each repository's change is
+  backward-compatible on its own.
 - Append the `done-criteria` extension content to every phase.
 
 Each phase lists tasks as `CREATE | UPDATE path — what`, its done-criteria,
@@ -141,8 +153,10 @@ if it happens.
    when access exists; otherwise list them for the user to add.
 3. Run the checks: every delivered acceptance criterion maps to at least one
    phase's done-criteria; no data row is verified by `TODO`; no forbidden phase
-   names; phase 1 is a contract or a spike; plus everything under the `checks`
-   extension point. Report any failure and fix it before offering the plan.
+   names; phase 1 is a contract or a spike; in a multi-repo plan every phase
+   names one repository from `repos:` and phase 1 is in the providing
+   repository; plus everything under the `checks` extension point. Report any
+   failure and fix it before offering the plan.
 4. Offer the plan for approval with a five-line summary: kind, criteria
    delivered and deferred, phase list, hinge if any, open decisions. On the
    user's approval set `status: approved` in the frontmatter.

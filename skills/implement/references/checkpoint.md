@@ -59,6 +59,18 @@ line below the first rather than overwriting it:
 **Checkpoint (round 2):** 2026-03-04 · Deviations: AC3 fix, see review · Unplanned: none
 ```
 
+## Multi-repo plans
+
+When the plan lists more than one repository, the phase's code and the plan
+live in different repositories, so a checkpoint is two commits with the same
+subject: the code in the phase's repository, the plan edit in the workspace.
+The checkpoint line names the repository so close-out can find the commit:
+
+```
+**Checkpoint:** {YYYY-MM-DD} · Repo: {name} · Deviations: {text or none} ·
+Unplanned: {text or none}
+```
+
 ## Amendment note on a later phase
 
 Directly under the later phase's heading:

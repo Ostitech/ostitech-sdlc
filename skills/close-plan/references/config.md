@@ -9,6 +9,7 @@ keys take these defaults.
 |---|---|---|
 | `artefacts.plan_dir` | `plans` | Resolving a bare plan filename |
 | `artefacts.prd_dir` | `prds` | Locating the PRD or revision to mark shipped |
+| `workspace.repos` | `[]` | Locating each repository's PR for a multi-repo plan |
 | `tracker.type` | `none` | Whether follow-ups are created as tracker items |
 | `tracker.issue_ref` | `#{n}` | How follow-up references are written |
 | `learning.gotchas_dir` | `null` | Where unplanned problems worth keeping are filed; null lists them instead |

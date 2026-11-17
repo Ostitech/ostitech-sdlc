@@ -36,6 +36,14 @@ is regenerated.
    report.
 5. Set `status: in-progress` in the frontmatter if it was `approved`.
 
+### Multi-repo plans
+
+When `repos:` names more than one repository, resolve each to a local
+checkout from `workspace.repos[].path`; ask for the path when there is none,
+and stop if it cannot be found. Steps 3 and 4 then run against the repository
+of the selected phase, not the workspace, using the same branch name in every
+repository. The plan stays in the workspace and is committed there.
+
 ## 2. Select the phase
 
 - `next`: the first phase whose **Checkpoint** line is still the placeholder
@@ -95,7 +103,9 @@ check, and never weaken a check to make it pass.
    commit on the branch using the format in `references/checkpoint.md`:
    subject `{PLAN_ID} phase {n}: {phase title}`, body listing deviations and
    unplanned problems. The commit is found later by its subject, so no SHA is
-   written into the plan.
+   written into the plan. In a multi-repo plan the code commit goes to the
+   phase's repository and the plan edit to the workspace, same subject, and
+   the checkpoint line names the repository.
 4. Run every step under the `after-phase` extension point.
 
 ## 7. Continue or finish
