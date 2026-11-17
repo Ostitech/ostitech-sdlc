@@ -30,7 +30,7 @@ Vendored, pinned to a release, copied rather than symlinked so it works on
 Windows without Developer Mode:
 
 ```bash
-npx skills add ostitech/ostitech-sdlc@v0.1.4 --all -a claude-code --copy -y
+npx skills add ostitech/ostitech-sdlc@v0.1.5 --all -a claude-code --copy -y
 ```
 
 Commit `.claude/skills/`, `.agents/skills/` and `skills-lock.json`. Then run

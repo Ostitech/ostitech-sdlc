@@ -10,10 +10,7 @@ and only missing keys are filled.
 |---|---|---|
 | `version` | `1` | Fixed |
 | `repo.kind` | `app` | Detected (nested git repositories and no build → `workspace`), confirmed |
-| `repo.name` | `null` (folder name) | Default |
-| `workspace.repos` | `[]` | Detected from nested repositories when the kind is `workspace`, confirmed |
-| `repo.kind` | `app` | Detected (nested git repositories and no build → `workspace`), confirmed |
-| `repo.name` | `null` (folder name) | Default |
+| `repo.name` | `null` | Default: the repository name from the origin URL, else the folder name (a worktree's folder name is not the repository's) |
 | `workspace.repos` | `[]` | Detected from nested repositories when the kind is `workspace`, confirmed |
 | `artefacts.prd_dir` | `prds` | Default, or the existing folder when the owner chooses to continue in it |
 | `artefacts.plan_dir` | `plans` | Default, or the existing folder when the owner chooses to continue in it |

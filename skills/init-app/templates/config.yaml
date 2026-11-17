@@ -5,17 +5,7 @@ version: 1
 
 repo:
   kind: app             # app: builds and ships code; workspace: a foundation repo with no build that holds cross-repo PRDs, plans and rules
-  name: null            # how plans refer to this repo; null = the folder name
-
-workspace:              # read only when repo.kind is workspace
-  repos: []
-#  - name: billing-api
-#    path: applications/billing-api   # local checkout relative to this repo, if nested here
-#    url: https://github.com/example/billing-api
-
-repo:
-  kind: app             # app: builds and ships code; workspace: a foundation repo with no build that holds cross-repo PRDs, plans and rules
-  name: null            # how plans refer to this repo; null = the folder name
+  name: null            # how plans refer to this repo; null = the repository name from the origin URL, else the folder name
 
 workspace:              # read only when repo.kind is workspace
   repos: []

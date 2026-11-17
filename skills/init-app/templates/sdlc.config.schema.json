@@ -11,35 +11,7 @@
       "additionalProperties": false,
       "properties": {
         "kind": { "type": "string", "enum": ["app", "workspace"], "default": "app", "description": "app: a repository that builds and ships code; workspace: a foundation repository with no build that holds cross-repo PRDs, plans and rules" },
-        "name": { "type": ["string", "null"], "default": null, "description": "How plans refer to this repository; null: the folder name" }
-      }
-    },
-    "workspace": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "Read only when repo.kind is workspace",
-      "properties": {
-        "repos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": ["name"],
-            "additionalProperties": false,
-            "properties": {
-              "name": { "type": "string" },
-              "path": { "type": ["string", "null"], "description": "Local checkout relative to the workspace when it is nested here; null when it is not" },
-              "url": { "type": ["string", "null"], "description": "Remote URL, used when there is no local checkout" }
-            }
-          }
-        }
-      }
-    },
-    "repo": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "kind": { "type": "string", "enum": ["app", "workspace"], "default": "app", "description": "app: a repository that builds and ships code; workspace: a foundation repository with no build that holds cross-repo PRDs, plans and rules" },
-        "name": { "type": ["string", "null"], "default": null, "description": "How plans refer to this repository; null: the folder name" }
+        "name": { "type": ["string", "null"], "default": null, "description": "How plans refer to this repository; null: the repository name from the origin URL, else the folder name" }
       }
     },
     "workspace": {

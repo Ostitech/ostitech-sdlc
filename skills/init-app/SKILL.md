@@ -19,8 +19,9 @@ scaffolding the repository owns; nothing under the skills folder is touched.
 2. Read `references/config.md` for the defaults and what each key is for.
 3. Look for organisation defaults: a file named `sdlc.defaults.yaml` inside
    any vendored skill folder (`.claude/skills/*/`, `.agents/skills/*/`).
-   Exactly one: read it and validate it against the schema. More than one:
-   ask which applies. Ignore `repo`, `workspace` and `validation` keys in it
+   Byte-identical copies in several install locations count as one. Exactly
+   one: read it and validate it against the schema. More than one that
+   differ: ask which applies. Ignore `repo`, `workspace` and `validation` keys in it
    with a warning; those are detected per repository. See
    `references/org-defaults.md` for how an organisation ships the file.
 4. There is no extensions file for this skill.
@@ -32,7 +33,7 @@ Inspect the repository without changing it, and record a finding for each row:
 | Detect | How | Feeds |
 |---|---|---|
 | Existing scaffold | `.sdlc/`, `prds/`, `plans/`, `investigations/` | Re-run versus first run |
-| Repository kind | Nested git repositories (folders one or two levels down holding `.git`) and no application build manifest → `workspace`; otherwise `app` | `repo.kind`, `workspace.repos` (name from the folder, `path` relative, `url` from its origin) |
+| Repository kind | Nested git repositories (folders one or two levels down holding a `.git` directory; a `.git` file marks a worktree, which does not count) and no application build manifest → `workspace`; otherwise `app` | `repo.kind`, `workspace.repos` (name from the folder, `path` relative, `url` from its origin) |
 | Validation commands | `package.json` scripts (lint, typecheck, test, e2e, build), `Makefile` targets, `pyproject.toml`, `Cargo.toml`, `*.csproj` | `validation.*` (not for a workspace) |
 | Tracker | Remote host (`github.com` → `github`; `dev.azure.com` or `visualstudio.com` → `ado`) **and** tracker signals in the repository: `AB#{n}` references in recent commits or the PR template, `azure-pipelines.yml` or `.azuredevops/`, GitHub issue templates. The code host and the work-item tracker are often different systems, so the result is the default for a question, never a finding | `tracker.type`, `tracker.org`, `tracker.project` |
 | Issue reference style | `github` → `#{n}`; `ado` → `AB#{n}` | `tracker.issue_ref` |

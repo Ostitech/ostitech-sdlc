@@ -27,7 +27,7 @@ version: 1
 
 repo:
   kind: app                      # app: builds and ships code; workspace: a foundation repo that holds cross-repo PRDs, plans and rules
-  name: null                     # how plans refer to this repo; null: the folder name
+  name: null                     # how plans refer to this repo; null: the repository name from the origin URL, else the folder name
 
 workspace:                       # read only when repo.kind is workspace
   repos: []                      # name, path (local checkout relative to the workspace, if nested), url

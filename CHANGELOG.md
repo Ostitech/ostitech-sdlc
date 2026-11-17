@@ -3,6 +3,16 @@
 All notable changes to the skills and the configuration contract.
 Contract version bumps are called out explicitly.
 
+## v0.1.5
+
+### Fixed
+- The config template and schema shipped with `init-app` carried the `repo` and `workspace` blocks twice, so a generated config had duplicate keys. `scripts/check-skills.py` now fails on duplicate keys in either file.
+- Nested-repository detection counted worktrees (a `.git` file); only a `.git` directory counts.
+- Byte-identical copies of `sdlc.defaults.yaml` in several install locations count as one organisation default, not a conflict.
+
+### Changed
+- `repo.name` defaults to the repository name from the origin URL, falling back to the folder name, so a worktree checkout gets the right name.
+
 ## v0.1.4
 
 ### Added
