@@ -3,12 +3,17 @@
 All notable changes to the skills and the configuration contract.
 Contract version bumps are called out explicitly.
 
+## v0.1.3
+
+### Fixed
+- Knowledge-index detection in `init-app` no longer names one organisation's file and script; it looks for an index described in the repository guidance or typed frontmatter on reference docs.
+
 ## v0.1.2
 
 ### Added
 - Cross-repo work: `repo.kind` (`app` | `workspace`), `repo.name` and `workspace.repos` in the config; a plan may list `repos:` when written in a workspace, with one repository per phase, contract phase in the providing repository, one PR per repository, and a checkpoint line that names the repository. Methodology section "Cross-repo work". Additive; contract version stays 1.
 - `init-app` detects a workspace (nested git repositories, no build), fills `workspace.repos`, and writes a workspace variant of the CLAUDE.md block.
-- `init-app` detects a knowledge index and asks about `context.knowledge_index`.
+- `init-app` detects a documentation index described in the repository's guidance and asks about `context.knowledge_index`.
 - `init-app` warns when `.gitignore` is an allow-list, since the scaffold is untracked until allow-listed.
 
 ### Changed

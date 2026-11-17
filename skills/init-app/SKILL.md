@@ -30,7 +30,7 @@ Inspect the repository without changing it, and record a finding for each row:
 | Validation commands | `package.json` scripts (lint, typecheck, test, e2e, build), `Makefile` targets, `pyproject.toml`, `Cargo.toml`, `*.csproj` | `validation.*` (not for a workspace) |
 | Tracker | Remote host (`github.com` → `github`; `dev.azure.com` or `visualstudio.com` → `ado`) **and** tracker signals in the repository: `AB#{n}` references in recent commits or the PR template, `azure-pipelines.yml` or `.azuredevops/`, GitHub issue templates. The code host and the work-item tracker are often different systems, so the result is the default for a question, never a finding | `tracker.type`, `tracker.org`, `tracker.project` |
 | Issue reference style | `github` → `#{n}`; `ado` → `AB#{n}` | `tracker.issue_ref` |
-| Knowledge index | `docs/knowledge-index.json`, a `knowledge-index` script in the manifest, or tagged reference docs | `context.knowledge_index` |
+| Knowledge index | Repository guidance (`CLAUDE.md`, `AGENTS.md`) describes an index of reference docs retrieved on demand, or reference docs carry typed frontmatter (id, type, tags) | `context.knowledge_index` |
 | Ignore rules | A `.gitignore` whose first rule is `*` (an allow-list) | Warning: the scaffold is untracked until allow-listed |
 | Decision records | `docs/decisions/`, `docs/adr/`, `adr/` | `learning.decisions_dir` |
 | Gotchas or known issues | `docs/gotchas/`, `docs/known-issues.md` | `learning.gotchas_dir` |
