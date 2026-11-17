@@ -12,13 +12,14 @@ and only missing keys are filled.
 | `artefacts.prd_dir` | `prds` | Default, or existing folder |
 | `artefacts.plan_dir` | `plans` | Default, or existing folder |
 | `artefacts.investigations_dir` | `investigations` | Default, or existing folder |
-| `artefacts.mockup_dir` | `prds/mockups` | Default, or detected mockup folder |
-| `ids.prd` | `PRD-{seq:3}` | Asked; existing artefact pattern offered |
+| `artefacts.prd_layout` | `folder` | Default; `flat` offered when existing PRDs are flat files |
+| `artefacts.mockup_dir` | `null` | Default (inside the PRD folder), or detected mockup folder |
+| `ids.prd` | `{slug}` | Asked; `{tracker}` and any existing artefact pattern offered |
 | `ids.revision` | `{prd}-R{seq:2}` | Asked with the above |
 | `tracker.type` | `none` | Detected from the git remote |
 | `tracker.issue_ref` | `#{n}` | Derived from tracker type |
 | `tracker.org`, `tracker.project` | unset | Parsed from an Azure DevOps remote |
-| `branches.*` | `docs/{id}-{slug}`, `feat/{id}-{slug}`, `fix/{id}-{slug}` | Default |
+| `branches.*` | `docs/{id}`, `feat/{id}`, `fix/{id}` | Default |
 | `roles` | `[]` | Asked; roles declared in code offered |
 | `design_system.path`, `design_system.guide` | `null` | Asked when a candidate folder is detected |
 | `placeholder_data` | `null` | Asked only when a design system is set |

@@ -29,11 +29,11 @@ Classify the input as one of:
 
 | Input | Kind | Plan id |
 |---|---|---|
-| A PRD file | feature | PRD id |
-| A revision file | revision | revision id |
-| An issue reference or a bug description | bug-fix | issue id from `tracker.issue_ref` |
-| A decision record, refactor, upgrade, infra or tooling change | technical | decision id, else `YYYYMMDD-slug` |
-| A description with none of the above | inline | `YYYYMMDD-slug` |
+| A PRD file or folder | feature | the PRD's `id` from its frontmatter |
+| A revision file | revision | the revision's `id` from its frontmatter |
+| An issue reference or a bug description | bug-fix | `{issue number}-{slug}`; the full reference goes in `tracker` |
+| A decision record, refactor, upgrade, infra or tooling change | technical | decision id, else `YYYYMMDD-{slug}` |
+| A description with none of the above | inline | `YYYYMMDD-{slug}` |
 
 Then ask the lane question before doing anything else:
 
@@ -134,7 +134,7 @@ if it happens.
 
 ## 6. Write, check, offer
 
-1. Write the file to `artefacts.plan_dir/{PLAN_ID}-{slug}.plan.md` from
+1. Write the file to `artefacts.plan_dir/{PLAN_ID}.plan.md` from
    `templates/plan.md`. If a plan with that id exists, stop and suggest
    `amend`.
 2. If `tracker.type` is not `none`, record the milestones on the tracker item

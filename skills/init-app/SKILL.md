@@ -42,9 +42,10 @@ Present the findings as a table before asking anything.
 Ask in one grouped message, with the detected or default value offered for
 each, and skip anything `--yes` or detection already settled:
 
-1. **Id scheme** for PRDs and revisions. Offer `PRD-{seq:3}` and
-   `{prd}-R{seq:2}`; if existing artefacts use another pattern, offer that
-   and the next free number.
+1. **Id scheme** for PRDs and revisions. Offer `{slug}` (the feature
+   name) and `{prd}-R{seq:2}`, and mention `{tracker}` for organisations
+   that want a number. If existing artefacts use another pattern, offer that
+   as well so the sequence can continue.
 2. **Roles**: the authorisation vocabulary (name and one-line description
    each). If the codebase declares roles (an enum, a groups file, a policy
    table), list them as the offer.

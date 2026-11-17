@@ -8,8 +8,9 @@ keys take these defaults.
 | Key | Default | Used for |
 |---|---|---|
 | `artefacts.prd_dir` | `prds` | Where the parent PRD is found and the revision is written |
+| `artefacts.prd_layout` | `folder` | Where the revision document is written |
 | `ids.revision` | `{prd}-R{seq:2}` | The revision id; `{prd}` is the parent id, `{seq:N}` the next free number for that parent |
-| `branches.prd` | `docs/{id}-{slug}` | The branch created for the revision, with the revision id |
+| `branches.prd` | `docs/{id}` | The branch created for the revision, with the revision id |
 | `tracker.type` | `none` | Whether a tracker item is created at sign-off |
 
 Extensions: `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/revise.md`, heading

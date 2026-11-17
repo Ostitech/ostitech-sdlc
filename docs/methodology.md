@@ -35,6 +35,32 @@ There is no third document between them. A product requirements document that
 also carries technical design and a schedule is a PRD that has swallowed two
 other documents, and it will be rewritten three times.
 
+## Identity and layout
+
+A PRD is an enduring record: it is amended for as long as the feature exists.
+Its identity is therefore the feature's name, not a counter, a date or an
+author.
+
+```
+prds/stock-adjustments/prd.md                 the PRD; id: stock-adjustments
+prds/stock-adjustments/R01-reason-codes.md    revision; id: stock-adjustments-R01
+prds/stock-adjustments/mockups/
+plans/stock-adjustments.plan.md               plan for the feature
+plans/stock-adjustments-R01.plan.md           plan for the revision
+plans/213-reject-missing-reason.plan.md       plan for a bug fix, by issue number
+plans/20260118-upgrade-orm.plan.md            plan for a technical change
+```
+
+Two developers can no longer clash on a number, because there is none. They
+can clash on a name, and that is a signal worth having: the same feature is
+being started twice. The tracker item number, recorded in the frontmatter, is
+the short reference for conversation and commits. Organisations that want a
+numeric id can put the tracker number in the id pattern.
+
+A PRD is never archived by moving it. When a feature is replaced, its PRD is
+marked superseded and points at the successor. Plans are transient and may be
+archived once closed.
+
 ## One plan, phased implementation, one PR
 
 Each piece of work produces **one plan** and lands as **one pull request**.
@@ -88,9 +114,9 @@ artefact, the plan lane, and where the work's identity comes from.
 
 | Kind | What it changes | Sign-off artefact | Plan | Identity |
 |---|---|---|---|---|
-| **Feature** | Adds agreed behaviour | PRD | PRD file plus plan | PRD id |
-| **Revision** | Changes agreed behaviour of something shipped | Revision document; parent PRD amended inline | Plan, often one phase | PRD id plus revision number |
-| **Bug fix** | Restores agreed behaviour | The tracker issue, plus an investigation when the cause is not obvious | Plan mode, or a short plan if it spans files | Issue id |
+| **Feature** | Adds agreed behaviour | PRD | PRD file plus plan | The PRD's slug |
+| **Revision** | Changes agreed behaviour of something shipped | Revision document; parent PRD amended inline | Plan, often one phase | Slug plus revision number |
+| **Bug fix** | Restores agreed behaviour | The tracker issue, plus an investigation when the cause is not obvious | Plan mode, or a short plan if it spans files | Issue number plus slug |
 | **Technical change** | Changes how, not what | A decision record when it changes a decision; otherwise none | Plan with an inline brief | Decision id or a dated slug |
 
 Boundary cases:

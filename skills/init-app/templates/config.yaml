@@ -5,12 +5,13 @@ version: 1
 
 artefacts:
   prd_dir: prds
+  prd_layout: folder    # folder: prds/<id>/prd.md, revisions and mockups inside; flat: prds/<id>.md
   plan_dir: plans
   investigations_dir: investigations
-  mockup_dir: prds/mockups
+  mockup_dir: null      # null = mockups/ inside the PRD folder
 
 ids:
-  prd: "PRD-{seq:3}"
+  prd: "{slug}"         # the feature name is its identity; {tracker}, {seq:N}, {date}, {initials} also available
   revision: "{prd}-R{seq:2}"
 
 tracker:
@@ -18,9 +19,9 @@ tracker:
   issue_ref: "#{n}"
 
 branches:
-  prd: "docs/{id}-{slug}"
-  work: "feat/{id}-{slug}"
-  fix: "fix/{id}-{slug}"
+  prd: "docs/{id}"
+  work: "feat/{id}"
+  fix: "fix/{id}"
 
 # The role vocabulary the PRD skill maps personas onto. Personas are not authorisation.
 roles: []

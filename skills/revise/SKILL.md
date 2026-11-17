@@ -24,8 +24,8 @@ what everyone reads afterwards.
 
 ## 1. Confirm the parent
 
-Resolve the PRD from the input by id or path under `artefacts.prd_dir`. If
-several match, ask. Then check its status:
+Resolve the PRD from the input by id, folder, path or title under
+`artefacts.prd_dir`. If several match, ask. Then check its status:
 
 | Parent status | Do |
 |---|---|
@@ -57,8 +57,9 @@ with no document link, and tell the user why no revision was created.
 2. Create or switch to the branch from `branches.prd` using the revision id
    and a slug for this revision, not the parent's slug. Stop and ask if the
    working tree has unrelated changes.
-3. Write the revision document beside the parent (same directory, or the
-   parent's folder if it has one) from `templates/revision.md`. The Changes to
+3. Write the revision document from `templates/revision.md`: in the
+   parent's folder as `R{nn}-{revision slug}.md` for the `folder` layout, or
+   beside the parent as `{REVISION_ID}-{revision slug}.md` for `flat`. The Changes to
    the parent PRD section is the diff: every added, changed and removed
    sentence, by section. Acceptance-criteria numbering continues from the
    parent's highest.

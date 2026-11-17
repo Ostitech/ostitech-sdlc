@@ -12,5 +12,8 @@ Contract version bumps are called out explicitly.
 - Plugin and marketplace manifests so the repository also installs as a Claude Code plugin.
 - Eval skeleton for `claude plugin eval`.
 
+### Changed
+- PRD identity is the feature slug by default, laid out as `prds/<id>/prd.md` with revisions and mockups inside (`artefacts.prd_layout`, new `{tracker}` id token, `mockup_dir` now optional, branch defaults no longer append a slug). Additive; contract version stays 1.
+
 ### Reserved
 - `context.knowledge_index` in the config and the plan skill's retrieval protocol. The tooling for a tagged documentation index ships separately.

@@ -8,7 +8,7 @@ mockups: {relative path to the mockup folder, or none}
 created: {YYYY-MM-DD}
 ---
 
-# {PRD_ID} — {Title}
+# {Title}
 
 ## Revision history
 

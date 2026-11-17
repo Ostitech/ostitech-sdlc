@@ -8,9 +8,10 @@ keys take these defaults.
 | Key | Default | Used for |
 |---|---|---|
 | `artefacts.prd_dir` | `prds` | Where the PRD file is written and existing PRDs are searched |
-| `artefacts.mockup_dir` | `prds/mockups` | Where a mockup folder is created |
-| `ids.prd` | `PRD-{seq:3}` | The PRD id |
-| `branches.prd` | `docs/{id}-{slug}` | The branch created for the PRD |
+| `artefacts.prd_layout` | `folder` | `prds/<id>/prd.md` (folder) or `prds/<id>.md` (flat) |
+| `artefacts.mockup_dir` | `null` | Where a mockup folder is created; null means inside the PRD folder |
+| `ids.prd` | `{slug}` | The PRD id; the feature name by default |
+| `branches.prd` | `docs/{id}` | The branch created for the PRD |
 | `roles` | `[]` | The vocabulary personas are mapped onto |
 | `design_system.path` | `null` | Enables the mockup step; folder of tokens and components |
 | `design_system.guide` | `null` | Read before intake for product vocabulary |
@@ -27,4 +28,5 @@ Extensions: `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/prd.md`, headings
   `artefacts.prd_dir`, zero-padded to N digits.
 - `{date}`: today as `YYYYMMDD`.
 - `{initials}`: upper-case initials of `git config user.name`.
-- `{slug}`: kebab-case, at most six words, derived from the title.
+- `{slug}`: kebab-case, at most six words, derived from the title; unique under `artefacts.prd_dir`.
+- `{tracker}`: the tracker item number; the item is created before the id is computed.

@@ -27,12 +27,13 @@ version: 1
 
 artefacts:
   prd_dir: prds                  # PRDs and their revisions
+  prd_layout: folder             # folder: prds/<id>/prd.md, revisions and mockups inside; flat: prds/<id>.md
   plan_dir: plans                # one plan per piece of work
   investigations_dir: investigations
-  mockup_dir: prds/mockups       # static HTML mockups referenced by PRDs
+  mockup_dir: null               # null: mockups/ inside the PRD folder
 
 ids:
-  prd: "PRD-{seq:3}"             # tokens: {seq:N} zero-padded counter, {date} YYYYMMDD, {initials}
+  prd: "{slug}"                  # the feature name; tokens: {slug} {tracker} {seq:N} {date} {initials}
   revision: "{prd}-R{seq:2}"     # {prd} is the parent PRD id
 
 tracker:
@@ -40,9 +41,9 @@ tracker:
   issue_ref: "#{n}"              # how an issue is written in commits and plans
 
 branches:
-  prd: "docs/{id}-{slug}"
-  work: "feat/{id}-{slug}"
-  fix: "fix/{id}-{slug}"
+  prd: "docs/{id}"
+  work: "feat/{id}"
+  fix: "fix/{id}"
 
 roles: []                        # name + description; the vocabulary the PRD skill maps personas onto
 

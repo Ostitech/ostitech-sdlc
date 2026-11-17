@@ -11,9 +11,10 @@
       "additionalProperties": false,
       "properties": {
         "prd_dir": { "type": "string", "default": "prds" },
+        "prd_layout": { "type": "string", "enum": ["folder", "flat"], "default": "folder", "description": "folder: prds/<id>/prd.md with revisions and mockups inside; flat: prds/<id>.md with revisions beside it" },
         "plan_dir": { "type": "string", "default": "plans" },
         "investigations_dir": { "type": "string", "default": "investigations" },
-        "mockup_dir": { "type": "string", "default": "prds/mockups" }
+        "mockup_dir": { "type": ["string", "null"], "default": null, "description": "null: mockups/ inside the PRD folder (folder layout) or prds/mockups/<id>/ (flat)" }
       }
     },
     "ids": {
@@ -22,8 +23,8 @@
       "properties": {
         "prd": {
           "type": "string",
-          "default": "PRD-{seq:3}",
-          "description": "Tokens: {seq:N} zero-padded counter scanned from prd_dir, {date} YYYYMMDD, {initials} from git user.name"
+          "default": "{slug}",
+          "description": "Tokens: {slug} from the title, {tracker} the tracker item number (created first), {seq:N} zero-padded counter scanned from prd_dir, {date} YYYYMMDD, {initials} from git user.name. The id must be filename-safe."
         },
         "revision": { "type": "string", "default": "{prd}-R{seq:2}" }
       }
@@ -42,9 +43,9 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "prd": { "type": "string", "default": "docs/{id}-{slug}" },
-        "work": { "type": "string", "default": "feat/{id}-{slug}" },
-        "fix": { "type": "string", "default": "fix/{id}-{slug}" }
+        "prd": { "type": "string", "default": "docs/{id}" },
+        "work": { "type": "string", "default": "feat/{id}" },
+        "fix": { "type": "string", "default": "fix/{id}" }
       }
     },
     "roles": {

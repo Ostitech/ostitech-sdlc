@@ -33,8 +33,10 @@ Decide what the ask is before asking anything else:
 | A small adjustment nobody needs to sign off | Say so and recommend plan mode; continue only if the user insists |
 | A new capability, screen, flow, report or integration | Continue |
 
-Check `artefacts.prd_dir` for an existing PRD covering the same area. If one
-exists and has shipped, this is probably a revision; say so.
+Check `artefacts.prd_dir` for an existing PRD covering the same area, by
+folder or file name and by title. If one exists and has shipped, this is
+probably a revision; say so. If one exists with the slug you would choose,
+stop: the feature already has a PRD.
 
 ## 2. Intake
 
@@ -52,14 +54,20 @@ so the PRD uses the product's existing vocabulary.
 
 ## 3. Identity and branch
 
-1. Compute the id from `ids.prd` (token rules in `references/config.md`).
-2. Derive a slug: kebab-case, at most six words, from the title.
-3. Create or switch to the branch from `branches.prd`. If the working tree has
+1. Derive the slug: kebab-case, at most six words, the feature's name as
+   people will say it. It must be unique under `artefacts.prd_dir`.
+2. If `ids.prd` contains `{tracker}`, create the tracker item now (title and
+   one-line summary) and use its number; stop if there is no tracker access.
+3. Compute the id from `ids.prd` (token rules in `references/config.md`).
+   By default the id is the slug.
+4. Create or switch to the branch from `branches.prd`. If the working tree has
    unrelated changes, stop and ask before switching.
 
 ## 4. Write the PRD
 
-Write `artefacts.prd_dir/{PRD_ID}-{slug}.md` from `templates/prd.md`:
+Write the PRD from `templates/prd.md` to the path the layout gives:
+`artefacts.prd_dir/{PRD_ID}/prd.md` for `folder` (the default), or
+`artefacts.prd_dir/{PRD_ID}.md` for `flat`. Then:
 
 - Use the owner's wording. Replace vague verbs (improve, enhance) with specific
   ones (add, show, filter by, block).
@@ -78,8 +86,9 @@ Write `artefacts.prd_dir/{PRD_ID}-{slug}.md` from `templates/prd.md`:
 Build a mockup only when `design_system.path` is set or the user asks. Follow
 `references/mockup.md`: documented components and tokens only, realistic
 sample data from `placeholder_data`, a top comment linking the PRD, modals and
-slide-overs rendered open. Write it under `artefacts.mockup_dir/{PRD_ID}-{slug}/`
-and set `mockups:` in the PRD frontmatter to that relative path.
+slide-overs rendered open. Write it under `mockups/` inside the PRD folder,
+or under `artefacts.mockup_dir/{PRD_ID}/` when that key is set or the layout
+is `flat`. Set `mockups:` in the PRD frontmatter to the relative path.
 
 ## 6. Checks
 
@@ -103,8 +112,9 @@ second file for the same feature. When the owner confirms:
 
 1. Set `status: signed-off` and the date in the frontmatter.
 2. If `tracker.type` is not `none` and access exists, create the tracker item
-   (title, link to the PRD, acceptance criteria as the description) and record
-   its reference in the frontmatter. Otherwise tell the user what to create.
+   (title, link to the PRD, acceptance criteria as the description) unless it
+   was created in step 3, in which case update it. Record its reference in
+   the frontmatter. Otherwise tell the user what to create.
 3. Hand off: name the `plan` skill with the PRD path as its input.
 
 ## Never

@@ -7,7 +7,7 @@ Build one only when `design_system.path` is set or the user asks for one.
 
 ## Location
 
-`artefacts.mockup_dir/{PRD_ID}-{slug}/index.html`, one file per screen if the
+`{PRD folder}/mockups/index.html` (or `artefacts.mockup_dir/{PRD_ID}/index.html`), one file per screen if the
 PRD describes more than one (`index.html`, `detail.html`, and so on). Set the
 PRD frontmatter `mockups:` to the folder's relative path.
 
