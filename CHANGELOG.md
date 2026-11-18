@@ -3,6 +3,11 @@
 All notable changes to the skills and the configuration contract.
 Contract version bumps are called out explicitly.
 
+## v0.1.8
+
+### Fixed
+- The documented install command used `--all`, which the skills CLI defines as every skill *and every agent*, overriding `-a claude-code` and writing copies into some fifty agent folders. The command is now `npx skills add <source> -s '*' -a claude-code universal -y --copy`. Documentation only.
+
 ## v0.1.7
 
 ### Changed

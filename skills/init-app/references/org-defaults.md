@@ -19,7 +19,8 @@ skills/<org>-defaults/
     prd.md
 ```
 
-`npx skills add <org>/<copy> --all` then installs it beside the core skills,
+`npx skills add <org>/<copy> -s '*' -a claude-code universal -y --copy` then
+installs it beside the core skills,
 and `init-app` finds `sdlc.defaults.yaml` under `.claude/skills/*/` or
 `.agents/skills/*/`.
 

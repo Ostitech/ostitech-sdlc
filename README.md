@@ -30,9 +30,13 @@ Vendored, pinned to a release, copied rather than symlinked so it works on
 Windows without Developer Mode:
 
 ```bash
-npx skills add ostitech/ostitech-sdlc@v0.1.7 --all -a claude-code --copy -y
+npx skills add ostitech/ostitech-sdlc@v0.1.8 -s '*' -a claude-code universal -y --copy
 ```
 
+`-s '*'` takes every skill, `-a claude-code universal` writes them to
+`.claude/skills/` (Claude Code) and `.agents/skills/` (every other agent that
+reads the universal folder). Do not use `--all`: it is shorthand for every
+skill *and every agent*, and scatters copies into some fifty agent folders.
 Commit `.claude/skills/`, `.agents/skills/` and `skills-lock.json`. Then run
 `/init-app` once to write `.sdlc/config.yaml` and the extension files.
 
@@ -93,7 +97,7 @@ Two rules keep the merge clean and the boundary honest:
 - The core skill folders under `skills/` are never edited in the copy. A
   change the extension points cannot express is a pull request here.
 - Organisation-specific skills live in their own folders in the copy
-  (`skills/<org>-<name>/`), so an install with `--all` from the copy gives a
+  (`skills/<org>-<name>/`), so an install with `-s '*'` from the copy gives a
   repository the core plus the organisation's additions in one step.
   Repository-level values and additions still go in that repository's
   `.sdlc/` folder.
