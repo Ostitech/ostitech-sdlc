@@ -1,7 +1,7 @@
 ---
 name: init-app
 description: "Scaffold a repository for the SDLC skills: detect what the repo already has, ask only what cannot be detected, then write .sdlc/config.yaml, the config schema, one extensions file per skill, the artefact directories, and a short CLAUDE.md pointer. Use when onboarding a new or existing repository to the skills, or when the user invokes /init-app. Never edits the vendored skills themselves."
-argument-hint: "[--yes to accept every detected default]"
+argument-hint: "[--yes to accept every detected default] [--repo <path>]"
 ---
 
 # Init app
@@ -10,21 +10,28 @@ Prepare a repository so the `prd`, `revise`, `plan`, `implement` and
 `close-plan` skills can run in it. Everything written is configuration and
 scaffolding the repository owns; nothing under the skills folder is touched.
 
-**Input:** $ARGUMENTS (`--yes` accepts detected defaults without asking).
+**Input:** $ARGUMENTS (`--yes` accepts detected defaults without asking;
+`--repo <path>` targets another repository, such as an application checkout
+nested under a workspace).
 
 ## 0. Load configuration
 
-1. If `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml` exists, read it: this is a
-   re-run. Keep every value already set and only fill gaps.
-2. Read `references/config.md` for the defaults and what each key is for.
-3. Look for organisation defaults: a file named `sdlc.defaults.yaml` inside
-   any vendored skill folder (`.claude/skills/*/`, `.agents/skills/*/`).
+1. The target repository is `--repo <path>` when given, else
+   `${CLAUDE_PROJECT_DIR}`. Everything below is detected in and written to
+   it. Never walk up to an enclosing repository: one without `.sdlc/` is
+   exactly what this skill sets up.
+2. If `.sdlc/config.yaml` exists in the target, read it: this is a re-run.
+   Keep every value already set and only fill gaps.
+3. Read `references/config.md` for the defaults and what each key is for.
+4. Look for organisation defaults: a file named `sdlc.defaults.yaml` inside
+   any vendored skill folder (`.claude/skills/*/`, `.agents/skills/*/`) of
+   the target, then of `${CLAUDE_PROJECT_DIR}`.
    Byte-identical copies in several install locations count as one. Exactly
    one: read it and validate it against the schema. More than one that
    differ: ask which applies. Ignore `repo`, `workspace` and `validation` keys in it
    with a warning; those are detected per repository. See
    `references/org-defaults.md` for how an organisation ships the file.
-4. There is no extensions file for this skill.
+5. There is no extensions file for this skill.
 
 ## 1. Detect
 

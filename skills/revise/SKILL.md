@@ -1,7 +1,7 @@
 ---
 name: revise
 description: Record a revision to a PRD that has already shipped (post-UAT feedback, a production defect that exposed a wrong specification, or a new ask against a live feature) as a revision document, and amend the parent PRD inline so it stays the current-state specification. Use when the user wants to revise, amend or raise a change against a shipped PRD, or invokes /revise. Never implements, and never revises a draft; that is an edit.
-argument-hint: <PRD id or path> <what is changing>
+argument-hint: <PRD id or path> <what is changing> [--repo <path>]
 ---
 
 # Revise
@@ -16,9 +16,16 @@ what everyone reads afterwards.
 
 ## 0. Load configuration
 
-1. Read `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml` if present; apply defaults
-   from `references/config.md` for anything missing.
-2. Read `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/revise.md` if present. The one
+1. Resolve the target repository (`references/config.md`, *Target
+   repository*): a `--repo <path>` argument; else the nearest folder at or
+   above the input path (or the current folder) holding `.sdlc/` or `.git`;
+   when that is a workspace and the work names one of `workspace.repos`,
+   that repository's checkout; else `${CLAUDE_PROJECT_DIR}`. Every path and
+   git operation below is relative to it. Say which was chosen when it is
+   not the project directory.
+2. Read its `.sdlc/config.yaml` if present; apply defaults from
+   `references/config.md` for anything missing.
+3. Read its `.sdlc/extensions/revise.md` if present. The one
    extension point is `checks`; keep its content for step 5. Warn once about
    unknown headings and ignore them.
 

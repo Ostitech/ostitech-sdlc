@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Produce the single implementation plan for a piece of work (feature from a PRD, revision, bug fix from an issue, or technical change) with a design section, shared context, and verification-bounded phases; or amend an existing plan. Use when the user asks to plan a feature, plan a fix, turn a PRD or revision into a plan, create an implementation plan, or invokes /plan. Plans only; never implements.
-argument-hint: <prd path | revision path | issue ref | decision record | description> | amend <plan path> <note>
+argument-hint: <prd path | revision path | issue ref | decision record | description> | amend <plan path> <note> [--repo <path>]
 ---
 
 # Plan
@@ -15,13 +15,20 @@ throwaway.
 
 ## 0. Load configuration
 
-1. Read `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml` if present; apply defaults
-   from `references/config.md` for anything missing.
-2. Read `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/plan.md` if present. Each
+1. Resolve the target repository (`references/config.md`, *Target
+   repository*): a `--repo <path>` argument; else the nearest folder at or
+   above the input path (or the current folder) holding `.sdlc/` or `.git`;
+   when that is a workspace and the work names one of `workspace.repos`,
+   that repository's checkout; else `${CLAUDE_PROJECT_DIR}`. Every path and
+   git operation below is relative to it. Say which was chosen when it is
+   not the project directory.
+2. Read its `.sdlc/config.yaml` if present; apply defaults from
+   `references/config.md` for anything missing.
+3. Read its `.sdlc/extensions/plan.md` if present. Each
    level-two heading is an extension point (`context`, `design`, `sections`,
    `done-criteria`, `checks`); keep its content to apply at that step. Warn
    once about unknown headings and ignore them.
-3. If the input starts with `amend`, go to **Amend mode**.
+4. If the input starts with `amend`, go to **Amend mode**.
 
 ## 1. Resolve the trigger and the lane
 

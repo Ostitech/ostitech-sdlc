@@ -1,7 +1,7 @@
 ---
 name: close-plan
 description: Close out a fully checkpointed plan by appending a one-page Close-out section (outcomes against acceptance criteria, deviations, unplanned problems, decisions to promote, follow-ups), filing gotchas and decision records where the repository keeps them, and marking the plan and its PRD or revision shipped. Use when the user asks to wrap up, close out, or finish a plan, or invokes /close-plan after the PR has merged. Never rewrites earlier plan sections.
-argument-hint: <plan path>
+argument-hint: <plan path> [--repo <path>]
 ---
 
 # Close-out
@@ -15,9 +15,16 @@ gets a one-page closing section and is marked complete.
 
 ## 0. Load configuration
 
-1. Read `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml` if present; apply defaults
-   from `references/config.md` for anything missing.
-2. Read `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/close-plan.md` if present.
+1. Resolve the target repository (`references/config.md`, *Target
+   repository*): a `--repo <path>` argument; else the nearest folder at or
+   above the input path (or the current folder) holding `.sdlc/` or `.git`;
+   when that is a workspace and the work names one of `workspace.repos`,
+   that repository's checkout; else `${CLAUDE_PROJECT_DIR}`. Every path and
+   git operation below is relative to it. Say which was chosen when it is
+   not the project directory.
+2. Read its `.sdlc/config.yaml` if present; apply defaults from
+   `references/config.md` for anything missing.
+3. Read its `.sdlc/extensions/close-plan.md` if present.
    Level-two headings are extension points (`sections`, `promote`); keep
    their content. Warn once about unknown headings and ignore them.
 

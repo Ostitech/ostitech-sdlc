@@ -2,8 +2,8 @@
 
 Contract versions read: **1**.
 
-Source: `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml`. Missing file or missing
-keys take these defaults.
+Source: `.sdlc/config.yaml` in the target repository (below). Missing file
+or missing keys take these defaults.
 
 | Key | Default | Used for |
 |---|---|---|
@@ -21,7 +21,7 @@ keys take these defaults.
 | `context.always_read` | `[]` | Files read before exploration |
 | `context.knowledge_index` | `false` | Enables `references/knowledge-index.md` |
 
-Extensions: `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/plan.md`, headings
+Extensions: `.sdlc/extensions/plan.md` in the target repository, headings
 `context`, `design`, `sections`, `done-criteria`, `checks`.
 
 ## Id tokens
@@ -38,3 +38,24 @@ The plan id is never generated independently: it is the trigger's id for a
 PRD or revision, `{issue number}-{slug}` for a bug fix, and `{date}-{slug}`
 for technical and inline work. Every plan id is filename-safe and the plan
 file is `{id}.plan.md`.
+
+## Target repository
+
+The repository whose `.sdlc/` is read and whose files, branches and commits
+the skill writes. Resolved once, before anything else, in this order:
+
+1. `--repo <path>` in the input: that folder, which must be a git repository.
+2. The input names a file or folder: the nearest folder at or above it holding
+   `.sdlc/` or `.git`. With no path in the input, the same walk up from the
+   current folder.
+3. The folder found is a workspace (`repo.kind: workspace`) and the work names
+   exactly one repository from `workspace.repos`: that repository's checkout
+   at `workspace.repos[].path`; ask for the path when there is none. For this
+   skill the work names a repository when the trigger does: a PRD, revision or investigation that lives in one, or an issue or description that names one; a plan listing several in `repos:` stays in the workspace. Work that names several
+   repositories, or none, stays in the workspace.
+4. Otherwise `${CLAUDE_PROJECT_DIR}`.
+
+The skill that runs is the one loaded in the session; it reads the target's
+config at its own contract version, whatever version that repository has
+vendored. Report the target once when it is not the project directory, and
+run every git command from it.

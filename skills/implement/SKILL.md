@@ -1,7 +1,7 @@
 ---
 name: implement
 description: Execute the phases of an approved plan with checkpoint discipline, one phase per loop or all phases in sequence, validating each phase before committing it and recording deviations in the plan. Use when the user asks to implement a plan, run the next phase, build phase N, execute the plan end to end, or invokes /implement. Never regenerates the plan, never skips validation, never edits the PRD.
-argument-hint: <plan path> [next | <phase number> | all]
+argument-hint: <plan path> [next | <phase number> | all] [--repo <path>]
 ---
 
 # Implement
@@ -16,9 +16,16 @@ is regenerated.
 
 ## 0. Load configuration
 
-1. Read `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml` if present; apply defaults
-   from `references/config.md` for anything missing.
-2. Read `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/implement.md` if present.
+1. Resolve the target repository (`references/config.md`, *Target
+   repository*): a `--repo <path>` argument; else the nearest folder at or
+   above the input path (or the current folder) holding `.sdlc/` or `.git`;
+   when that is a workspace and the work names one of `workspace.repos`,
+   that repository's checkout; else `${CLAUDE_PROJECT_DIR}`. Every path and
+   git operation below is relative to it. Say which was chosen when it is
+   not the project directory.
+2. Read its `.sdlc/config.yaml` if present; apply defaults from
+   `references/config.md` for anything missing.
+3. Read its `.sdlc/extensions/implement.md` if present.
    Level-two headings are extension points (`before-phase`, `validation`,
    `after-phase`); keep their content to apply at those steps. Warn once about
    unknown headings and ignore them.
@@ -38,9 +45,10 @@ is regenerated.
 
 ### Multi-repo plans
 
-When `repos:` names more than one repository, resolve each to a local
-checkout from `workspace.repos[].path`; ask for the path when there is none,
-and stop if it cannot be found. Steps 3 and 4 then run against the repository
+When `repos:` names more than one repository, the target is the workspace
+the plan lives in. Resolve each repository to a local checkout from
+`workspace.repos[].path`; ask for the path when there is none, and stop if it
+cannot be found. Steps 3 and 4 then run against the repository
 of the selected phase, not the workspace, using the same branch name in every
 repository. The plan stays in the workspace and is committed there.
 

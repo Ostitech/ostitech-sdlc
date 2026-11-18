@@ -1,7 +1,7 @@
 ---
 name: prd
 description: Capture a new feature as a PRD in the product owner's language (problem, users, roles, behaviour, acceptance criteria, scope boundaries, open questions) plus an optional static HTML mockup, then offer it for sign-off. Use when the user wants to describe, spec, design or brief a new screen, flow, report or capability, or invokes /prd. Never writes code, a plan, or technical design; a change to shipped behaviour belongs to /revise.
-argument-hint: <feature description> | <path to an existing draft PRD to continue>
+argument-hint: <feature description> | <path to an existing draft PRD to continue> [--repo <path>]
 ---
 
 # PRD
@@ -14,13 +14,20 @@ how we will know it is right. It never says how it will be built.
 
 ## 0. Load configuration
 
-1. Read `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml` if present; apply defaults
-   from `references/config.md` for anything missing.
-2. Read `${CLAUDE_PROJECT_DIR}/.sdlc/extensions/prd.md` if present. Each
+1. Resolve the target repository (`references/config.md`, *Target
+   repository*): a `--repo <path>` argument; else the nearest folder at or
+   above the input path (or the current folder) holding `.sdlc/` or `.git`;
+   when that is a workspace and the work names one of `workspace.repos`,
+   that repository's checkout; else `${CLAUDE_PROJECT_DIR}`. Every path and
+   git operation below is relative to it. Say which was chosen when it is
+   not the project directory.
+2. Read its `.sdlc/config.yaml` if present; apply defaults from
+   `references/config.md` for anything missing.
+3. Read its `.sdlc/extensions/prd.md` if present. Each
    level-two heading is an extension point (`questions`, `sections`,
    `checks`); keep its content to apply at that step. Warn once about unknown
    headings and ignore them.
-3. If the input is a path to a draft PRD, read it and resume from step 3.
+4. If the input is a path to a draft PRD, read it and resume from step 3.
 
 ## 1. Lane
 
@@ -35,7 +42,9 @@ Decide what the ask is before asking anything else:
 
 If the behaviour spans more than one repository and `repo.kind` is `app`,
 say so: the PRD belongs in the workspace repository, where the plan can list
-every repository it changes. Continue here only if the user confirms.
+every repository it changes. Continue here only if the user confirms. The
+converse is handled by target resolution: a feature that names one
+repository, started from the workspace, is written into that repository.
 
 Check `artefacts.prd_dir` for an existing PRD covering the same area, by
 folder or file name and by title. If one exists and has shipped, this is

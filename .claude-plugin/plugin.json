@@ -1,6 +1,6 @@
 {
   "name": "ostitech-sdlc",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A light, config-driven delivery procedure for Claude Code: PRD, plan, phased implementation and close-out. Client specifics live in the adopting repo's .sdlc/ folder, never in the skills.",
   "author": {
     "name": "Ostitech"

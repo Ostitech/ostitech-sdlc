@@ -80,8 +80,15 @@ learning:
   decisions_dir: null            # where promoted decision records go
 ```
 
-Skills substitute `${CLAUDE_PROJECT_DIR}` to locate the file, so the config is
-per repository even when the skills are installed globally.
+The file is read from the **target repository**, resolved once per run:
+`--repo <path>` when given; else the nearest folder at or above the input
+path (or the current folder) holding `.sdlc/` or `.git`; when that is a
+workspace and the work names exactly one of `workspace.repos`, that
+repository's checkout; else `${CLAUDE_PROJECT_DIR}`. So the config is per
+repository even when the skills are installed globally, and a session rooted
+in a workspace can write a single-repository PRD or plan into the repository
+it belongs to. `init-app` takes only `--repo` and never walks up. Each skill's
+`references/config.md` states what counts as naming a repository for it.
 
 ## Extensions
 

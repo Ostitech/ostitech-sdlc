@@ -3,6 +3,11 @@
 All notable changes to the skills and the configuration contract.
 Contract version bumps are called out explicitly.
 
+## v0.1.7
+
+### Changed
+- Every skill resolves a **target repository** before reading configuration: `--repo <path>`; else the nearest folder at or above the input path (or the current folder) holding `.sdlc/` or `.git`; when that is a workspace and the work names exactly one of `workspace.repos`, that repository's checkout; else `${CLAUDE_PROJECT_DIR}`. Config, extensions, artefact paths, branches and commits all follow the target, so a single-repository PRD or plan started from a workspace session is written into its repository. `init-app` takes `--repo` only and never walks up. Each skill's `references/config.md` has a *Target repository* section. No config change; contract version stays 1.
+
 ## v0.1.6
 
 ### Added

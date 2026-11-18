@@ -2,7 +2,8 @@
 
 Contract versions read: **1**. Writes contract version **1**.
 
-Target: `${CLAUDE_PROJECT_DIR}/.sdlc/config.yaml`, validated against
+Target: `.sdlc/config.yaml` in the target repository (`--repo <path>`, else
+`${CLAUDE_PROJECT_DIR}`), validated against
 `templates/sdlc.config.schema.json`. On a re-run, existing values are kept
 and only missing keys are filled.
 

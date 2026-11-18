@@ -177,6 +177,11 @@ work.
   repositories as extra directories when the agent needs to read them. A
   session rooted in the workspace does not get an application repository's
   own guidance, settings or vendored skills.
+- Single-repository work started from the workspace still lands in its
+  repository: every skill resolves a target repository first (`--repo`, the
+  input path, or the one repository the work names) and reads and writes
+  there, so a PRD for one application is never filed in the workspace by
+  accident.
 
 What survives the move from a developer's machine to a cloud session or CI is
 what each repository carries itself. A consumer repository should not need a
